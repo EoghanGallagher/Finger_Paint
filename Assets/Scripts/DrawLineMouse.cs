@@ -86,29 +86,29 @@ public class DrawLineMouse : MonoBehaviour
 		if ( Input.GetMouseButtonDown( 0 ) ) 
 		{
 
-			RedrawLine();
-			// if( !line.collider )
-			// 	line.collider = true;
+			//RedrawLine();
+			if( !line.collider )
+				line.collider = true;
 		
-			// if ( line3D ) 
-			// {
-			// 	line.points3.Clear();
-			// }
-			// else 
-			// {
-			// 	line.points2.Clear();
-			// }
-			// line.Draw();
-			// previousPosition = Input.mousePosition;
-			// if ( line3D ) 
-			// {
-			// 	line.points3.Add ( newPoint );
-			// }
-			// else 
-			// {
-			// 	line.points2.Add ( newPoint );
-			// }
-			// canDraw = true;
+			if ( line3D ) 
+			{
+				line.points3.Clear();
+			}
+			else 
+			{
+				line.points2.Clear();
+			}
+			line.Draw();
+			previousPosition = Input.mousePosition;
+			if ( line3D ) 
+			{
+				line.points3.Add ( newPoint );
+			}
+			else 
+			{
+				line.points2.Add ( newPoint );
+			}
+			canDraw = true;
 
 		}
 		// Mouse button held down and mouse has moved far enough to make a new point

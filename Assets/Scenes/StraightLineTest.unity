@@ -301,6 +301,10 @@ MonoBehaviour:
   previousPosition: {x: 0, y: 0, z: 0}
   sqrMinPixelMove: 0
   canDraw: 0
+  pointCount: 0
+  successLine:
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
 --- !u!1 &132832805 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1997160640830534, guid: e514aad9f175c4dee9bb6fc32f23f24d,
