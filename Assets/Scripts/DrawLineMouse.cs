@@ -20,6 +20,9 @@ public class DrawLineMouse : MonoBehaviour
 	[SerializeField] private Vector3 previousPosition;
 	[SerializeField] private int sqrMinPixelMove;
 	[SerializeField] private bool canDraw = false;
+	[SerializeField] private int pointCount;
+	public int PointCount { get{ return pointCount; } set{ value = pointCount;} }
+	[SerializeField] private List<Vector3> successLine = new List<Vector3>();
 
 
 	void OnEnable()
@@ -77,34 +80,35 @@ public class DrawLineMouse : MonoBehaviour
 	void Update () 
 	{
 		Vector3 newPoint = GetMousePos();
-		int pointCount = 0;
+		
 	
 		// Mouse button clicked, so start a new line
 		if ( Input.GetMouseButtonDown( 0 ) ) 
 		{
 
-			if( !line.collider )
-				line.collider = true;
+			RedrawLine();
+			// if( !line.collider )
+			// 	line.collider = true;
 		
-			if ( line3D ) 
-			{
-				line.points3.Clear();
-			}
-			else 
-			{
-				line.points2.Clear();
-			}
-			line.Draw();
-			previousPosition = Input.mousePosition;
-			if ( line3D ) 
-			{
-				line.points3.Add ( newPoint );
-			}
-			else 
-			{
-				line.points2.Add ( newPoint );
-			}
-			canDraw = true;
+			// if ( line3D ) 
+			// {
+			// 	line.points3.Clear();
+			// }
+			// else 
+			// {
+			// 	line.points2.Clear();
+			// }
+			// line.Draw();
+			// previousPosition = Input.mousePosition;
+			// if ( line3D ) 
+			// {
+			// 	line.points3.Add ( newPoint );
+			// }
+			// else 
+			// {
+			// 	line.points2.Add ( newPoint );
+			// }
+			// canDraw = true;
 
 		}
 		// Mouse button held down and mouse has moved far enough to make a new point
@@ -121,7 +125,8 @@ public class DrawLineMouse : MonoBehaviour
 			{
 				line.points2.Add ( newPoint );
 				pointCount = line.points2.Count;
-				Debug.Log( pointCount );
+				successLine.Add( newPoint );
+				
 				line.Draw();
 			}
 			if ( pointCount >= maxPoints ) 
@@ -152,6 +157,23 @@ public class DrawLineMouse : MonoBehaviour
 	void StartLine()
 	{
 		canDraw = true;
+	}
+
+
+	private void RedrawLine()
+	{
+		
+		Debug.Log( "Redrawing Line" );
+		
+		VectorLine line = new VectorLine("DrawnLine", new List<Vector2>(), capLineTex, 8.0f, LineType.Continuous, Joins.Weld);		
+
+
+		foreach( Vector3 point in successLine )
+		{
+			line.points2.Add( point );
+		}
+
+		line.Draw();
 	}
 
 

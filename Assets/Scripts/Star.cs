@@ -15,11 +15,18 @@ public class Star : MonoBehaviour
 	private Color errorColour;
 	private Color successColour;
 
+	private DrawLineMouse _drawLineHandler;
+
+
 	void Start()
 	{
 		linkHandler = Object.FindObjectOfType<LinkHandler>();
 		_transform = transform;
 		_material = GetComponent<Renderer>().material;
+
+		_drawLineHandler = GameObject.Find( "Main Camera" ).GetComponent<DrawLineMouse>();
+
+
 
 		originalColour = _material.color;
 		successColour = Color.green;
@@ -52,6 +59,11 @@ public class Star : MonoBehaviour
 		{
 			Debug.Log( "Valid: Draw a line between these two points." );
 			_material.color = successColour;
+
+			if( _drawLineHandler )
+			{
+				Debug.Log( "Current Point Count of line is : " + _drawLineHandler.PointCount );
+			}
 
 
 
