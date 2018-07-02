@@ -15,6 +15,9 @@ public class StarManager : MonoBehaviour
 	public static Star previousStarObject;
 	//public int PreviousStar { get{ return previousStar; } set{ previousStar = value; Debug.Log( previousStar ); } }
 
+	//Records the number of points of the line the last time the player selected the correct number
+	public static int lastSuccessPointCount = 0; 
+
 	void Awake()
 	{
 		if( instance == null )

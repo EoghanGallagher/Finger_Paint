@@ -17,6 +17,11 @@ public class Star : MonoBehaviour
 
 	private DrawLineMouse _drawLineHandler;
 
+	private Collider2D _collider2D;
+
+	private bool isOkToDrawLine;
+
+	
 
 	void Start()
 	{
@@ -27,10 +32,15 @@ public class Star : MonoBehaviour
 		_drawLineHandler = GameObject.Find( "Main Camera" ).GetComponent<DrawLineMouse>();
 
 
+		_collider2D = GetComponent<Collider2D>();
+
+
 
 		originalColour = _material.color;
 		successColour = Color.green;
 		errorColour = Color.red;
+
+		isOkToDrawLine = true; //A check to prevent the player from drawing a line to the wrong selection twice
 	}
 
 	// void OnMouseDown()
@@ -40,6 +50,8 @@ public class Star : MonoBehaviour
 	// 	StartCoroutine( "StarSequence" );
     // }
 
+
+	//Detect when line intersects star 
 	void OnTriggerEnter2D( Collider2D other )
 	{
 
@@ -62,10 +74,11 @@ public class Star : MonoBehaviour
 
 			if( _drawLineHandler )
 			{
-				Debug.Log( "Current Point Count of line is : " + _drawLineHandler.PointCount );
+				StarManager.lastSuccessPointCount = _drawLineHandler.PointCount;
+				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
+				_drawLineHandler.ClearLine();
+				isOkToDrawLine = true;
 			}
-
-
 
 			// if( StarManager.previousStar != -1 )
 			// 	Debug.Log( "Starting Position ...Ignore" );
@@ -86,19 +99,23 @@ public class Star : MonoBehaviour
 			StarManager.score ++;
 			Debug.Log( StarManager.score );
 
-
+			//Disable Collider after it has been succssfully selected
+			if( _collider2D )
+				_collider2D.enabled = false;
+		
 			if( starValue == 24 )
 			{
 				Debug.Log( "End Line..." );
 			}
-
-			
-
 		}
 		else
 		{
-			Debug.Log( "Invalid: Not the correct Sequence" );
+			Debug.Log( "Invalid: Not the correct Sequence " + isOkToDrawLine );
+		
 			_material.color = errorColour;
+
+			_drawLineHandler.DestroyLine();
+
 		}
 	
 

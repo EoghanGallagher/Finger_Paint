@@ -21,7 +21,11 @@ public class DrawLineMouse : MonoBehaviour
 	[SerializeField] private int sqrMinPixelMove;
 	[SerializeField] private bool canDraw = false;
 	[SerializeField] private int pointCount;
-	public int PointCount { get{ return pointCount; } set{ value = pointCount;} }
+
+	[SerializeField] private Camera renderCamera;
+ 	public int PointCount { get{ return pointCount; } set{ value = pointCount;} }
+
+	
 	[SerializeField] private List<Vector3> successLine = new List<Vector3>();
 
 
@@ -37,55 +41,20 @@ public class DrawLineMouse : MonoBehaviour
 
 	void Start()
 	{
-		Texture2D tex = null;
-		float useLineWidth = 0;
-		
-		VectorLine.canvas.sortingOrder = -1;
-
-
-		if ( useEndCap ) 
-		{
-			VectorLine.SetEndCap ("RoundCap", EndCap.Mirror, capLineTex, capTex);
-			tex = capLineTex;
-			useLineWidth = capLineWidth;
-		}
-		else 
-		{
-			tex = lineTex;
-			useLineWidth = lineWidth;
-		}
-	
-		if (line3D) 
-		{
-		
-			line = new VectorLine("DrawnLine3D", new List<Vector3>(), tex, useLineWidth, LineType.Continuous, Joins.Weld);
-		}
-		else 
-		{
-			line = new VectorLine("DrawnLine", new List<Vector2>(), tex, useLineWidth, LineType.Continuous, Joins.Weld);		
-		}
-		line.endPointsUpdate = 1;	// Optimization for updating only the last point of the line, and the rest is not re-computed
-		if (useEndCap) 
-		{
-			line.endCap = "RoundCap";
-		}
-		// Used for .sqrMagnitude, which is faster than .magnitude
-		sqrMinPixelMove = minPixelMove*minPixelMove;
-		
-		line.collider = false;
-		
-
+		CreateLine();
 	}
 
 	void Update () 
 	{
 		Vector3 newPoint = GetMousePos();
 		
-	
 		// Mouse button clicked, so start a new line
 		if ( Input.GetMouseButtonDown( 0 ) ) 
 		{
-
+			if( line == null )
+			{
+				CreateLine();
+			}	
 			//RedrawLine();
 			if( !line.collider )
 				line.collider = true;
@@ -123,11 +92,16 @@ public class DrawLineMouse : MonoBehaviour
 			}
 			else 
 			{
-				line.points2.Add ( newPoint );
-				pointCount = line.points2.Count;
-				successLine.Add( newPoint );
+				if( line != null )
+				{
 				
-				line.Draw();
+					line.points2.Add ( newPoint );
+					pointCount = line.points2.Count;
+					successLine.Add( newPoint );
+				
+					line.Draw();
+
+				}
 			}
 			if ( pointCount >= maxPoints ) 
 			{
@@ -139,6 +113,7 @@ public class DrawLineMouse : MonoBehaviour
 	Vector3 GetMousePos () 
 	{
 		var p = Input.mousePosition;
+
 		if (line3D) 
 		{
 			p.z = distanceFromCamera;
@@ -159,22 +134,110 @@ public class DrawLineMouse : MonoBehaviour
 		canDraw = true;
 	}
 
+	
 
-	private void RedrawLine()
+	//Draw a custom line.
+	public void DrawLine( int lastSuccessPoint  )
 	{
 		
-		Debug.Log( "Redrawing Line" );
-		
-		VectorLine line = new VectorLine("DrawnLine", new List<Vector2>(), capLineTex, 8.0f, LineType.Continuous, Joins.Weld);		
+		Debug.Log( "----Redrawing Line" );
+		Debug.Log( lastSuccessPoint );
 
+		VectorLine newLine = new VectorLine("DrawnLine", new List<Vector2>(), capLineTex, lineWidth, LineType.Continuous, Joins.Weld);		
 
-		foreach( Vector3 point in successLine )
+		for( int i = 0; i < lastSuccessPoint-1; i++ )
 		{
-			line.points2.Add( point );
+			
+			if( line.points2[i] != null )
+			{	
+				Debug.Log( line.points2[i] );
+				newLine.points2.Add( line.points2[i] );
+			}
+				
+		}
+
+		//line.points2.RemoveRange( 0, line.points2.Count );
+		//line.active = false;
+		
+		newLine.Draw();
+
+		//line.active = true;
+
+		
+	}
+
+
+	public void EraseLine( )
+	{
+		for( int i = 0; i < line.points2.Count; i++ )
+		{
+		    line.points2.Remove( line.points2[i] );
 		}
 
 		line.Draw();
 	}
 
+	public void ClearLine()
+	{
+		line.points2.Clear();
+		//line.Draw();
+	}
+
+
+	public void DestroyLine()
+	{
+		VectorLine.Destroy( ref line );
+	}
+
+	private void CreateLine()
+	{
+			Texture2D tex = null;
+		float useLineWidth = 0;
+
+		//Get the scene camera
+		//renderCamera = GetComponent<Camera>();
+		
+		//Set the Vector Line canvas camera
+		//VectorLine.SetCanvasCamera( renderCamera );
+		
+		//Set the render mode
+		//VectorLine.canvas.renderMode = RenderMode.ScreenSpaceCamera;
+		
+		//Set the default sorting order for the line. In this case make it appear behind objects.
+		VectorLine.canvas.sortingOrder = 20;
+		
+
+
+		if ( useEndCap ) 
+		{
+			VectorLine.SetEndCap ( "RoundCap", EndCap.Mirror, capLineTex, capTex );
+			tex = capLineTex;
+			useLineWidth = capLineWidth;
+		}
+		else 
+		{
+			tex = lineTex;
+			useLineWidth = lineWidth;
+		}
+	
+		if (line3D) 
+		{
+		
+			line = new VectorLine("DrawnLine3D", new List<Vector3>(), tex, useLineWidth, LineType.Continuous, Joins.Weld);
+		}
+		else 
+		{
+			line = new VectorLine("DrawnLine", new List<Vector2>(), tex, useLineWidth, LineType.Continuous, Joins.Weld);		
+		}
+		line.endPointsUpdate = 1;	// Optimization for updating only the last point of the line, and the rest is not re-computed
+		if (useEndCap) 
+		{
+			line.endCap = "RoundCap";
+		}
+		// Used for .sqrMagnitude, which is faster than .magnitude
+		sqrMinPixelMove = minPixelMove*minPixelMove;
+		
+		line.collider = false;
+	}
 
 }
