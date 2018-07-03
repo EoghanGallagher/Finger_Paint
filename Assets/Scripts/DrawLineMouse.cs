@@ -143,7 +143,7 @@ public class DrawLineMouse : MonoBehaviour
 		Debug.Log( "----Redrawing Line" );
 		Debug.Log( lastSuccessPoint );
 
-		VectorLine newLine = new VectorLine("DrawnLine", new List<Vector2>(), capLineTex, lineWidth, LineType.Continuous, Joins.Weld);		
+		VectorLine newLine = new VectorLine("DrawnLine", new List<Vector2>(), lineTex, lineWidth, LineType.Continuous, Joins.Weld);		
 
 		for( int i = 0; i < lastSuccessPoint-1; i++ )
 		{
