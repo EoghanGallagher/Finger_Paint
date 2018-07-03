@@ -9,7 +9,7 @@ using System.IO;
 public class FileManager : MonoBehaviour 
 {
 
-	[SerializeField] private bool isTextAsset;
+	public static bool isTextAsset;
 
 	void OnEnable()
 	{
@@ -23,7 +23,7 @@ public class FileManager : MonoBehaviour
 
 	void Start()
 	{
-
+		LoadFile( GetPath() );
 	}
 
 	public void SaveFile()
@@ -54,14 +54,38 @@ public class FileManager : MonoBehaviour
         //Debug.Log(asset.text);
 	}
 
-	public void LoadFile()
-	{
-		
+	public static void LoadFile( string fileName )
+	{ 
+		string line = "";
+
+		try
+		{
+			 //Create a new StreamReader, tell it which file to read
+			 //Set the encoding in this case default.
+			 StreamReader reader = new StreamReader( fileName, Encoding.Default );
+
+			 using( reader )
+			 {
+				 do
+				 {
+					 line = reader.ReadLine();
+				 }
+				 while( line != null );
+			 };
+		}
+		catch( Exception e )
+		{
+
+		}
+		finally
+		{
+
+		}
 	}
 
 
 	//Return a valid filepath for various devices...
-	private string GetPath()
+	private static string GetPath()
 	{
 		
 		string fileName = "test.csv";
