@@ -143,7 +143,7 @@ public class DrawLineMouse : MonoBehaviour
 		Debug.Log( "----Redrawing Line" );
 		Debug.Log( lastSuccessPoint );
 
-		VectorLine newLine = new VectorLine("DrawnLine", new List<Vector2>(), lineTex, lineWidth, LineType.Continuous, Joins.Weld);		
+		VectorLine newLine = new VectorLine("DrawnLine", new List<Vector2>(), capLineTex, lineWidth, LineType.Continuous, Joins.Weld);		
 
 		for( int i = 0; i < lastSuccessPoint-1; i++ )
 		{
@@ -189,10 +189,24 @@ public class DrawLineMouse : MonoBehaviour
 		VectorLine.Destroy( ref line );
 	}
 
-	public void CreateLine()
+	private void CreateLine()
 	{
-		Texture2D tex = null;
+			Texture2D tex = null;
 		float useLineWidth = 0;
+
+		//Get the scene camera
+		//renderCamera = GetComponent<Camera>();
+		
+		//Set the Vector Line canvas camera
+		//VectorLine.SetCanvasCamera( renderCamera );
+		
+		//Set the render mode
+		//VectorLine.canvas.renderMode = RenderMode.ScreenSpaceCamera;
+		
+		//Set the default sorting order for the line. In this case make it appear behind objects.
+		VectorLine.canvas.sortingOrder = 20;
+		
+
 
 		if ( useEndCap ) 
 		{
@@ -206,13 +220,14 @@ public class DrawLineMouse : MonoBehaviour
 			useLineWidth = lineWidth;
 		}
 	
-		if ( line3D ) 
+		if (line3D) 
 		{
-			line = new VectorLine("DrawnLine3D", new List<Vector3>(), lineTex, useLineWidth, LineType.Continuous, Joins.Weld);
+		
+			line = new VectorLine("DrawnLine3D", new List<Vector3>(), tex, useLineWidth, LineType.Continuous, Joins.Weld);
 		}
 		else 
 		{
-			line = new VectorLine("DrawnLine", new List<Vector2>(), lineTex, useLineWidth, LineType.Continuous, Joins.Weld);		
+			line = new VectorLine("DrawnLine", new List<Vector2>(), tex, useLineWidth, LineType.Continuous, Joins.Weld);		
 		}
 		line.endPointsUpdate = 1;	// Optimization for updating only the last point of the line, and the rest is not re-computed
 		if (useEndCap) 

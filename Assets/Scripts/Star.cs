@@ -76,8 +76,8 @@ public class Star : MonoBehaviour
 			{
 				StarManager.lastSuccessPointCount = _drawLineHandler.PointCount;
 				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
-				//_drawLineHandler.ClearLine();
-			
+				_drawLineHandler.ClearLine();
+				isOkToDrawLine = true;
 			}
 
 			// if( StarManager.previousStar != -1 )
