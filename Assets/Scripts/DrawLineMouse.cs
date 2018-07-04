@@ -140,9 +140,6 @@ public class DrawLineMouse : MonoBehaviour
 	public void DrawLine( int lastSuccessPoint  )
 	{
 		
-		Debug.Log( "----Redrawing Line" );
-		Debug.Log( lastSuccessPoint );
-
 		VectorLine newLine = new VectorLine("DrawnLine", new List<Vector2>(), lineTex, lineWidth, LineType.Continuous, Joins.Weld);		
 
 		for( int i = 0; i < lastSuccessPoint-1; i++ )
@@ -150,7 +147,6 @@ public class DrawLineMouse : MonoBehaviour
 			
 			if( line.points2[i] != null )
 			{	
-				Debug.Log( line.points2[i] );
 				newLine.points2.Add( line.points2[i] );
 			}
 				
@@ -162,8 +158,7 @@ public class DrawLineMouse : MonoBehaviour
 		newLine.Draw();
 
 		//line.active = true;
-
-		
+	
 	}
 
 

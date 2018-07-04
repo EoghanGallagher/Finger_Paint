@@ -21,20 +21,21 @@ public class Star : MonoBehaviour
 
 	private bool isOkToDrawLine;
 
+	private GameManager gameManager;
+
 	
 
 	void Start()
 	{
 		linkHandler = Object.FindObjectOfType<LinkHandler>();
+		gameManager = Object.FindObjectOfType<GameManager>();
+
 		_transform = transform;
 		_material = GetComponent<Renderer>().material;
 
 		_drawLineHandler = GameObject.Find( "Main Camera" ).GetComponent<DrawLineMouse>();
 
-
 		_collider2D = GetComponent<Collider2D>();
-
-
 
 		originalColour = _material.color;
 		successColour = Color.green;
@@ -53,9 +54,7 @@ public class Star : MonoBehaviour
 
 	//Detect when line intersects star 
 	void OnTriggerEnter2D( Collider2D other )
-	{
-
-		Debug.Log( "Trigger :  " + other.name );	
+	{	
 	   if( other.name.Equals( "DrawnLine" ) )
 			StartCoroutine( "StarSequence" );
 	}
@@ -69,13 +68,15 @@ public class Star : MonoBehaviour
 		//Check if last star clicked is one less than current star
 		if( StarManager.previousStar == ( starValue - 1 ) )
 		{
-			Debug.Log( "Valid: Draw a line between these two points." );
+			Debug.Log( "You clicked on the correct star...." );
 			_material.color = successColour;
 
 			if( _drawLineHandler )
 			{
 				StarManager.lastSuccessPointCount = _drawLineHandler.PointCount;
 				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
+				gameManager.UpdateScore();
+
 				//_drawLineHandler.ClearLine();
 				//isOkToDrawLine = true;
 			}
@@ -96,17 +97,12 @@ public class Star : MonoBehaviour
 
 			StarManager.previousStar = starValue;
 			StarManager.previousStarObject = this;
-			StarManager.score ++;
-			Debug.Log( StarManager.score );
+		
 
 			//Disable Collider after it has been succssfully selected
 			if( _collider2D )
 				_collider2D.enabled = false;
 		
-			if( starValue == 24 )
-			{
-				Debug.Log( "End Line..." );
-			}
 		}
 		else
 		{
