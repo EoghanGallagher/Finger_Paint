@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/StraightLineTest.unity
-    guid: 9ac27c8337802428997ea44e4817e8a9
+    path: Assets/Scenes/Splash.unity
+    guid: a1da67c860b504281a831e87d0406c2b
+  - enabled: 1
+    path: Assets/Scenes/TrailMakingIntro.unity
+    guid: e734adcddecf5447c9d386133b0f0feb
+  - enabled: 1
+    path: Assets/Scenes/Trail_Making_Test_Part_A.unity
+    guid: 0db9f6d5902044a619fb0537c83c4a36
   m_configObjects: {}
