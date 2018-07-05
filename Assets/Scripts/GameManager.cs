@@ -3,16 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.PostProcessing;
 
 public class GameManager : MonoBehaviour 
 {
+
+	[SerializeField] private PostProcessingBehaviour blur;
+	[SerializeField] private PostProcessingBehaviour normal;
 	[SerializeField] private int score;
 	// Use this for initialization
 
+	[SerializeField] private int scoreLimit = 25;
 	[SerializeField] GameObject canvas;
-
 	[SerializeField] private bool isLevelOver;
 	public static GameManager instance = null;
+
+
+	  // has the user pressed start?
+    bool m_hasLevelStarted = false;
+    public bool HasLevelStarted { get { return m_hasLevelStarted; } set { m_hasLevelStarted = value; } }
+
+ // have we begun gamePlay?
+    bool m_isGamePlaying = false;
+    public bool IsGamePlaying { get { return m_isGamePlaying; } set { m_isGamePlaying = value; } }
+
+    // have we met the game over condition?
+    bool m_isGameOver = false;
+    public bool IsGameOver { get { return m_isGameOver; } set { m_isGameOver = value; } }
+
+    // have the end level graphics finished playing?
+    bool m_hasLevelFinished = false;
+    public bool HasLevelFinished { get { return m_hasLevelFinished; } set { m_hasLevelFinished = value; } }
+
+
+	//Unity Events
+	public UnityEvent setupEvent;
+	public UnityEvent startLevelEvent;
+	public UnityEvent playLevelEvent;
+	public UnityEvent endLevelEvent;
+
+	
+
 	void Awake()
 	{
 		if( instance == null )
@@ -29,7 +61,7 @@ public class GameManager : MonoBehaviour
 	void Start () 
 	{
 		//canvas = GameObject.Find( "YouWon" );
-		canvas.SetActive( false );
+		//canvas.SetActive( false );
 		
 		StartCoroutine( "RunGameLoop" );
 	}
@@ -37,11 +69,12 @@ public class GameManager : MonoBehaviour
 	IEnumerator RunGameLoop()
 	{
 		Debug.Log( "RunGameLoop" );
-		//yield return StartCoroutine( "StartSplashRoutine" );
-		//yield return StartCoroutine( "StartLevelRoutine" );
-		yield return StartCoroutine( "PlayLevelRoutine" );
-		yield return StartCoroutine( "EndLevelRoutine" );
-		yield return null;
+		
+		//Handles level setup
+		yield return StartCoroutine("StartLevelRoutine");
+		yield return StartCoroutine("PlayLevelRoutine");
+		yield return StartCoroutine("EndLevelRoutine");
+			
 	}
 
 	IEnumerator StartSplashRoutine()
@@ -53,67 +86,106 @@ public class GameManager : MonoBehaviour
 
 		SceneManager.LoadSceneAsync( "TrailMakingIntro" );
 
-
 	}
 
 	IEnumerator StartLevelRoutine()
 	{
-		Debug.Log( "Start Level Routine..." );
-		//Show start screen
+		if (setupEvent != null)
+        {
+            setupEvent.Invoke();
+        }
 
-		//User presses button to start
-		//HasLevelStarted = true;
-			
-		yield return null;
+		while ( !m_hasLevelStarted )
+        {
+            //show start screen
+            // user presses button to start
+            // HasLevelStarted = true
+            yield return null;
+        }
+
+		  // trigger events when we press the StartButton
+        if (startLevelEvent != null)
+        {
+            startLevelEvent.Invoke();
+        }
 		
 	}
 
 	IEnumerator PlayLevelRoutine()
 	{
 		Debug.Log( "Play Level Routine..." );
+		if (playLevelEvent != null)
+        {
+            playLevelEvent.Invoke();
+        }
+		
+		while (!m_isGameOver)
+        {
+            // pause one frame
+            yield return null;
 
-		
-		
-		yield return null;
+            // check for level win condition
+            m_isGameOver = IsWinner();
+
+            // check for the lose condition
+        }
 	}
 
 	IEnumerator EndLevelRoutine()
 	{
-		Debug.Log( "End Level Routine..." );
-		yield return null;
+		// run events when we end the level
+        if (endLevelEvent != null)
+        {
+            endLevelEvent.Invoke();
+        }
 
-		while( !isLevelOver )
-		{
-			yield return null;
-		}
+        // show end screen
+        while (!m_hasLevelFinished)
+        {
+            // user presses button to continue
 
-		Debug.Log( "Level is over ...well done ...." );
-		isLevelOver = false;
-		Time.timeScale = 0;
-		canvas.SetActive( true );
+            // HasLevelFinished = true
+            yield return null;
+        }
 	}
-
-	
-
 
 	public void StartGame()
 	{
 		SceneManager.LoadScene( "Trail_Making_Test_Part_A" );
 	}
 
-
 	public void UpdateScore()
 	{
 		score++;
+	}
 
-		Debug.Log( "Current Score : " + score );
-
-		if( score == 25 )
+	bool IsWinner()
+	{
+		if( score == scoreLimit )
 		{
-			Debug.Log("Yay Player completed the level. Trigger end of level sequence....");
-			isLevelOver = true;
-			score = 0;
+			return true;
 		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	// attach to StartButton, triggers PlayLevelRoutine
+	public void PlayLevel()
+	{
+		m_hasLevelStarted = true;
+	}
+
+	public void Pause()
+	{
+		Time.timeScale = 0;
+	}
+
+	public void Resume()
+	{
+		Time.timeScale = 1;
 	}
 	
 
