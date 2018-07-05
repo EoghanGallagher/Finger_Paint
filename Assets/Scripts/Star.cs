@@ -12,7 +12,7 @@ public class Star : MonoBehaviour
 	private Material _material;
 
 	private Color originalColour;
-	private Color errorColour;
+	private Color errorColour = new Color( 0.9433f, 0.1382f, 0.0934f );
 	private Color successColour;
 
 	private DrawLineMouse _drawLineHandler;
@@ -20,36 +20,41 @@ public class Star : MonoBehaviour
 	private Collider2D _collider2D;
 
 	private bool isOkToDrawLine;
+	private bool isOkToColor = false;
 
 	private GameManager gameManager;
 
+	SpriteRenderer starSpriteRenderer;
+	Transform star;
 	
-
 	void Start()
 	{
+		_transform = transform;
+		
+		//Find Sibling Star . The star in question has a sprite renderer that needs to be accessed
+		star = _transform.parent.Find( "Star" );
+
+		if( star != null )
+			starSpriteRenderer = star.GetComponent<SpriteRenderer>();
+		
+		
+
 		linkHandler = Object.FindObjectOfType<LinkHandler>();
 		gameManager = Object.FindObjectOfType<GameManager>();
 
-		_transform = transform;
+		
 		_material = GetComponent<Renderer>().material;
 
 		_drawLineHandler = GameObject.Find( "Main Camera" ).GetComponent<DrawLineMouse>();
 
 		_collider2D = GetComponent<Collider2D>();
 
-		originalColour = _material.color;
-		successColour = Color.green;
-		errorColour = Color.red;
+		originalColour = starSpriteRenderer.color;
+		
 
 		isOkToDrawLine = true; //A check to prevent the player from drawing a line to the wrong selection twice
 	}
 
-	// void OnMouseDown()
-    // {
-    //     Debug.Log( "Clicked " + gameObject.name );
-		
-	// 	StartCoroutine( "StarSequence" );
-    // }
 
 
 	//Detect when line intersects star 
@@ -77,28 +82,13 @@ public class Star : MonoBehaviour
 				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
 				gameManager.UpdateScore();
 
-				//_drawLineHandler.ClearLine();
-				//isOkToDrawLine = true;
+				starSpriteRenderer.color = new Color( 0.9716f, 0.8722f, 0.1512f, 1 );
+			
 			}
-
-			// if( StarManager.previousStar != -1 )
-			// 	Debug.Log( "Starting Position ...Ignore" );
-
-			//Update the StarManager with the current star
-			//This will be used as a source for the line.
-	
-			//Draw link between stars
-			// if( linkHandler && StarManager.previousStar != -1  )
-			// {
-			// 	//Debug.Log( StarManager.previousStarObject.name );
-			// 	linkHandler.InitLink( StarManager.previousStarObject.transform.position, _transform.position );
-
-			// }
 
 			StarManager.previousStar = starValue;
 			StarManager.previousStarObject = this;
 		
-
 			//Disable Collider after it has been succssfully selected
 			if( _collider2D )
 				_collider2D.enabled = false;
@@ -107,15 +97,25 @@ public class Star : MonoBehaviour
 		else
 		{
 			Debug.Log( "Invalid: Not the correct Sequence " + isOkToDrawLine );
+
+			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
 		
-			_material.color = errorColour;
-
+			isOkToColor = true;
+			    iTween.ValueTo (gameObject, iTween.Hash (
+					"from", errorColour, 
+					"to", originalColour, 
+					"time", 2.5f, 
+					"easetype", "easeInCubic", 
+					"onUpdate","UpdateColor"));
+			
 			_drawLineHandler.DestroyLine();
-
 		}
 	
-
-		//Debug.Log( "Ending Star Sequence" );
 	}
+
+	void UpdateColor(Color newColor)
+ 	{
+    	 starSpriteRenderer.color = newColor;
+ 	}
 
 }

@@ -42,6 +42,7 @@ public class DrawLineMouse : MonoBehaviour
 	void Start()
 	{
 		CreateLine();
+	
 	}
 
 	void Update () 
@@ -77,7 +78,7 @@ public class DrawLineMouse : MonoBehaviour
 			{
 				line.points2.Add ( newPoint );
 			}
-			canDraw = true;
+			//canDraw = true;
 
 		}
 		// Mouse button held down and mouse has moved far enough to make a new point
@@ -233,6 +234,11 @@ public class DrawLineMouse : MonoBehaviour
 		sqrMinPixelMove = minPixelMove*minPixelMove;
 		
 		line.collider = false;
+	}
+
+	public void DrawEnabled()
+	{
+		canDraw = true;
 	}
 
 }

@@ -154,6 +154,11 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene( "Trail_Making_Test_Part_A" );
 	}
 
+	public void ReplayLevel()
+	{
+
+	}
+
 	public void UpdateScore()
 	{
 		score++;
@@ -186,6 +191,15 @@ public class GameManager : MonoBehaviour
 	public void Resume()
 	{
 		Time.timeScale = 1;
+	}
+
+
+	public void TogglePause()
+	{
+		if(Time.timeScale > 0 )
+			Pause();
+		else
+			Resume();
 	}
 	
 
