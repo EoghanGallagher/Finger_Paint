@@ -104,7 +104,7 @@ public class Star : MonoBehaviour
 			    iTween.ValueTo (gameObject, iTween.Hash (
 					"from", errorColour, 
 					"to", originalColour, 
-					"time", 2.5f, 
+					"time", 1.25f, 
 					"easetype", "easeInCubic", 
 					"onUpdate","UpdateColor"));
 			

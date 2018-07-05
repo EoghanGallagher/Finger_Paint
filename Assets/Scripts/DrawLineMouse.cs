@@ -241,4 +241,9 @@ public class DrawLineMouse : MonoBehaviour
 		canDraw = true;
 	}
 
+	public void DrawDisabled()
+	{
+		canDraw = false;
+	}
+
 }
