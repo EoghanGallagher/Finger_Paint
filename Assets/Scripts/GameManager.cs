@@ -15,8 +15,10 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 
 	[SerializeField] private int scoreLimit = 25;
+	[SerializeField] private int tutScoreLimit = 8;
 	[SerializeField] GameObject canvas;
 	[SerializeField] private bool isLevelOver;
+	[SerializeField] private bool istutorial;
 	public static GameManager instance = null;
 
 
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour
     // have the end level graphics finished playing?
     bool m_hasLevelFinished = false;
     public bool HasLevelFinished { get { return m_hasLevelFinished; } set { m_hasLevelFinished = value; } }
+
+
 
 
 	//Unity Events
@@ -62,6 +66,11 @@ public class GameManager : MonoBehaviour
 	{
 		//canvas = GameObject.Find( "YouWon" );
 		//canvas.SetActive( false );
+
+		if( istutorial )
+		{
+			scoreLimit = tutScoreLimit;
+		}
 		
 		StartCoroutine( "RunGameLoop" );
 	}

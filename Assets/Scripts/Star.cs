@@ -37,12 +37,9 @@ public class Star : MonoBehaviour
 		if( star != null )
 			starSpriteRenderer = star.GetComponent<SpriteRenderer>();
 		
-		
-
 		linkHandler = Object.FindObjectOfType<LinkHandler>();
 		gameManager = Object.FindObjectOfType<GameManager>();
 
-		
 		_material = GetComponent<Renderer>().material;
 
 		_drawLineHandler = GameObject.Find( "Main Camera" ).GetComponent<DrawLineMouse>();
@@ -51,7 +48,6 @@ public class Star : MonoBehaviour
 
 		originalColour = starSpriteRenderer.color;
 		
-
 		isOkToDrawLine = true; //A check to prevent the player from drawing a line to the wrong selection twice
 	}
 
@@ -66,14 +62,11 @@ public class Star : MonoBehaviour
 
 	IEnumerator StarSequence()
 	{
-		Debug.Log( "Starting Star Sequence" );
-		
 		yield return new WaitForSeconds( 0.2f );
 
 		//Check if last star clicked is one less than current star
 		if( StarManager.previousStar == ( starValue - 1 ) )
 		{
-			Debug.Log( "You clicked on the correct star...." );
 			_material.color = successColour;
 
 			if( _drawLineHandler )
@@ -96,8 +89,7 @@ public class Star : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log( "Invalid: Not the correct Sequence " + isOkToDrawLine );
-
+			//Consequences of picking the wrong star
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
 		
 			isOkToColor = true;

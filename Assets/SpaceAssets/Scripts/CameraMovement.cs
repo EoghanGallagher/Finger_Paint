@@ -7,6 +7,11 @@ public class CameraMovement : MonoBehaviour {
     float currentScrollPosition = 0f;
 
 	void Start () {
+
+      
+        if( Time.timeScale == 0)
+            Time.timeScale = 1;
+
         switch (SpaceManager.instance.scrollDirection)
         {
             case ScrollDirection.LeftToRight:
