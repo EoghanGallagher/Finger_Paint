@@ -75,7 +75,12 @@ public class Star : MonoBehaviour
 				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
 				gameManager.UpdateScore();
 
+				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
+
 				starSpriteRenderer.color = new Color( 0.9716f, 0.8722f, 0.1512f, 1 );
+
+
+
 			
 			}
 
@@ -109,5 +114,7 @@ public class Star : MonoBehaviour
  	{
     	 starSpriteRenderer.color = newColor;
  	}
+
+	
 
 }

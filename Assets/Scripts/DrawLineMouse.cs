@@ -95,13 +95,11 @@ public class DrawLineMouse : MonoBehaviour
 			{
 				if( line != null )
 				{
-				
 					line.points2.Add ( newPoint );
 					pointCount = line.points2.Count;
 					successLine.Add( newPoint );
 				
 					line.Draw();
-
 				}
 			}
 			if ( pointCount >= maxPoints ) 
