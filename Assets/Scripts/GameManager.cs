@@ -38,16 +38,12 @@ public class GameManager : MonoBehaviour
     bool m_hasLevelFinished = false;
     public bool HasLevelFinished { get { return m_hasLevelFinished; } set { m_hasLevelFinished = value; } }
 
-
-
-
 	//Unity Events
 	public UnityEvent setupEvent;
 	public UnityEvent startLevelEvent;
 	public UnityEvent playLevelEvent;
 	public UnityEvent endLevelEvent;
 
-	
 
 	void Awake()
 	{
@@ -62,6 +58,7 @@ public class GameManager : MonoBehaviour
 
 		DontDestroyOnLoad( gameObject );
 	}
+
 	void Start () 
 	{
 		//canvas = GameObject.Find( "YouWon" );
@@ -75,9 +72,10 @@ public class GameManager : MonoBehaviour
 		StartCoroutine( "RunGameLoop" );
 	}
 
+
+	//Start the Game Loop
 	IEnumerator RunGameLoop()
 	{
-		Debug.Log( "RunGameLoop" );
 		
 		//Handles level setup
 		yield return StartCoroutine("StartLevelRoutine");
@@ -88,15 +86,17 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator StartSplashRoutine()
 	{
-		Debug.Log( "Logo fading in" );
+	
 		yield return new WaitForSeconds( 1.0f );
-		Debug.Log( "Waiting for 2 seconds before" );
+		
 		yield return new WaitForSeconds( 2.0f );
 
 		SceneManager.LoadSceneAsync( "TrailMakingIntro" );
 
 	}
 
+
+	//Game Setup 
 	IEnumerator StartLevelRoutine()
 	{
 		if (setupEvent != null)
@@ -120,9 +120,9 @@ public class GameManager : MonoBehaviour
 		
 	}
 
+	//The Actuall Game loop
 	IEnumerator PlayLevelRoutine()
 	{
-		Debug.Log( "Play Level Routine..." );
 		if (playLevelEvent != null)
         {
             playLevelEvent.Invoke();
@@ -140,8 +140,11 @@ public class GameManager : MonoBehaviour
         }
 	}
 
+	//Game Clean Up
 	IEnumerator EndLevelRoutine()
 	{
+		
+		yield return new WaitForSeconds( 0.6f );
 		// run events when we end the level
         if (endLevelEvent != null)
         {
@@ -168,6 +171,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
+	//Keep Track of player score
 	public void UpdateScore()
 	{
 		score++;
@@ -192,17 +196,19 @@ public class GameManager : MonoBehaviour
 		m_hasLevelStarted = true;
 	}
 
+	//Pause Game
 	public void Pause()
 	{
 		Time.timeScale = 0;
 	}
 
+	//Resume Game
 	public void Resume()
 	{
 		Time.timeScale = 1;
 	}
 
-
+	//Toggle Pause
 	public void TogglePause()
 	{
 		if(Time.timeScale > 0 )

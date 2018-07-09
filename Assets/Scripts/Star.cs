@@ -128,16 +128,17 @@ public class Star : MonoBehaviour
     	 starSpriteRenderer.color = newColor;
  	}
 
+
+	
+	//Dont let the player start a line in open space.
+	//Force them to start drawing form the last success node.
+
 	void OnMouseDown()
 	{
-		Debug.Log( "Clicked on " + gameObject.name );
 		if( _drawLineHandler.LastNode.name.Equals( gameObject.name ) )
 		{
-			Debug.Log( "This is the correct starting point. ...." );
 			_drawLineHandler.CanDraw = true;
 		}
 	}
-
-	
 
 }

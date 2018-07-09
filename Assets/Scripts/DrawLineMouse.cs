@@ -73,8 +73,7 @@ public class DrawLineMouse : MonoBehaviour
 		if ( Input.GetMouseButtonDown( 0 ) ) 
 		{
 			isMouseUp = false;
-			Debug.Log( "Can Draw : " + canDraw );
-
+		
 			if( line == null )
 			{
 				CreateLine();

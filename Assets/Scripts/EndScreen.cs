@@ -7,13 +7,18 @@ using UnityEngine.PostProcessing;
 public class EndScreen : MonoBehaviour 
 {
 
-	// Use this for initialization
-	void Start () {
-		
+	[SerializeField] private PostProcessingProfile blurProfile;
+	[SerializeField] private PostProcessingProfile defaultProfile;
+
+	public PostProcessingBehaviour cameraPostProcess;
+
+
+	public void EnableCameraBlur( bool state )
+	{
+		if( cameraPostProcess != null && blurProfile != null && defaultProfile != null  )
+		{
+			cameraPostProcess.profile = ( state ) ? blurProfile : defaultProfile;
+		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
