@@ -20,13 +20,23 @@ public class DrawLineMouse : MonoBehaviour
 	[SerializeField] private Vector3 previousPosition;
 	[SerializeField] private int sqrMinPixelMove;
 	[SerializeField] private bool canDraw = false;
+
+
+	[SerializeField] private bool isMouseUp;
+	public bool IsMouseUp { get{ return isMouseUp; } set{ isMouseUp = value; } }
+	public bool CanDraw { get{ return canDraw; } set{ canDraw = value; } }
 	[SerializeField] private int pointCount;
+	public int PointCount { get{ return pointCount; } set{ pointCount = value;} }
+
+	[SerializeField] private Transform lastNode;
+
+	public Transform LastNode { get{ return lastNode; } set{ lastNode = value; } }
 
 	[SerializeField] private Camera renderCamera;
- 	public int PointCount { get{ return pointCount; } set{ value = pointCount;} }
 
-	
 	[SerializeField] private List<Vector3> successLine = new List<Vector3>();
+
+	public Transform firstStar;
 
 
 	void OnEnable()
@@ -42,16 +52,29 @@ public class DrawLineMouse : MonoBehaviour
 	void Start()
 	{
 		CreateLine();
+
+		GameObject star  = GameObject.Find( "Star 1" );
+		if( star != null )
+			firstStar = star.GetComponent<Transform>();
+
+		if( firstStar != null )
+			lastNode = firstStar;
 	
 	}
 
 	void Update () 
 	{
 		Vector3 newPoint = GetMousePos();
+		var p = Input.mousePosition;
+
+		
 		
 		// Mouse button clicked, so start a new line
 		if ( Input.GetMouseButtonDown( 0 ) ) 
 		{
+			isMouseUp = false;
+			Debug.Log( "Can Draw : " + canDraw );
+
 			if( line == null )
 			{
 				CreateLine();
@@ -59,7 +82,7 @@ public class DrawLineMouse : MonoBehaviour
 			//RedrawLine();
 			if( !line.collider )
 				line.collider = true;
-		
+			
 			if ( line3D ) 
 			{
 				line.points3.Clear();
@@ -70,6 +93,7 @@ public class DrawLineMouse : MonoBehaviour
 			}
 			line.Draw();
 			previousPosition = Input.mousePosition;
+			
 			if ( line3D ) 
 			{
 				line.points3.Add ( newPoint );
@@ -78,12 +102,13 @@ public class DrawLineMouse : MonoBehaviour
 			{
 				line.points2.Add ( newPoint );
 			}
-			//canDraw = true;
+		
 
 		}
 		// Mouse button held down and mouse has moved far enough to make a new point
 		else if ( Input.GetMouseButton( 0 ) && ( Input.mousePosition - previousPosition ).sqrMagnitude > sqrMinPixelMove && canDraw ) 
 		{
+			isMouseUp = false;
 			previousPosition = Input.mousePosition;
 			if ( line3D ) 
 			{
@@ -107,6 +132,13 @@ public class DrawLineMouse : MonoBehaviour
 				canDraw = false;
 			}
 		}
+		else if ( Input.GetMouseButtonUp( 0 ) )
+		{
+			canDraw = false;
+			isMouseUp = true;
+		}
+
+		
 	}
 
 	Vector3 GetMousePos () 
@@ -174,6 +206,7 @@ public class DrawLineMouse : MonoBehaviour
 	public void ClearLine()
 	{
 		line.points2.Clear();
+	
 		//line.Draw();
 	}
 
@@ -181,6 +214,7 @@ public class DrawLineMouse : MonoBehaviour
 	public void DestroyLine()
 	{
 		VectorLine.Destroy( ref line );
+		canDraw = false;
 	}
 
 	private void CreateLine()
@@ -243,5 +277,6 @@ public class DrawLineMouse : MonoBehaviour
 	{
 		canDraw = false;
 	}
+
 
 }

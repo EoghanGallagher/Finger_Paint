@@ -62,7 +62,7 @@ public class Star : MonoBehaviour
 
 	IEnumerator StarSequence()
 	{
-		yield return new WaitForSeconds( 0.2f );
+		yield return new WaitForSeconds( 0.1f );
 
 		//Check if last star clicked is one less than current star
 		if( StarManager.previousStar == ( starValue - 1 ) )
@@ -73,24 +73,37 @@ public class Star : MonoBehaviour
 			{
 				StarManager.lastSuccessPointCount = _drawLineHandler.PointCount;
 				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
+				_drawLineHandler.LastNode = _transform;
 				gameManager.UpdateScore();
 
 				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
 
 				starSpriteRenderer.color = new Color( 0.9716f, 0.8722f, 0.1512f, 1 );
 
+				originalColour = starSpriteRenderer.color;
+				
+				if( _drawLineHandler.IsMouseUp )
+				{
+					_drawLineHandler.CanDraw = false;
+				}
 
-
-			
 			}
 
 			StarManager.previousStar = starValue;
 			StarManager.previousStarObject = this;
+
+		
 		
 			//Disable Collider after it has been succssfully selected
-			if( _collider2D )
-				_collider2D.enabled = false;
+			//if( _collider2D )
+				//_collider2D.enabled = false;
+
+			
 		
+		}
+		if( StarManager.previousStar == starValue )
+		{
+			//Do Absolutely nothing for the moment...
 		}
 		else
 		{
@@ -114,6 +127,16 @@ public class Star : MonoBehaviour
  	{
     	 starSpriteRenderer.color = newColor;
  	}
+
+	void OnMouseDown()
+	{
+		Debug.Log( "Clicked on " + gameObject.name );
+		if( _drawLineHandler.LastNode.name.Equals( gameObject.name ) )
+		{
+			Debug.Log( "This is the correct starting point. ...." );
+			_drawLineHandler.CanDraw = true;
+		}
+	}
 
 	
 
