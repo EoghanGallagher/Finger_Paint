@@ -14,5 +14,7 @@ public class Transition
 	public string Source { get; set; }
 	public string Destination{  get; set; }
 
+	public bool TransitionComplete { get; set; }
+
 	public List <Error> transitionErrors = new List<Error>(); 
 }

@@ -62,6 +62,10 @@ public class PersistenceManager : MonoBehaviour
         	serializedObject = formatter.Deserialize( file );
         	file.Close();
     	}
+		else
+		{
+			Debug.Log( "File not Found..." );
+		}
     	return serializedObject;
 	}
 

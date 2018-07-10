@@ -46,6 +46,7 @@ public class TransitionManager : MonoBehaviour
 		transition = new Transition();
 		isTransitionOpen = true;
 		isTimerRunning = true;
+		transition.TransitionComplete = false;
 
 		SetTimer();
 
@@ -59,6 +60,8 @@ public class TransitionManager : MonoBehaviour
 			isTransitionOpen = false;
 		
 		isTimerRunning = false;
+
+		transition.TransitionComplete = true;
 
 		SetTransitionDuration();
 
