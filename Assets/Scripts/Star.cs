@@ -157,7 +157,6 @@ public class Star : MonoBehaviour
     	 starSpriteRenderer.color = newColor;
  	}
 
-
 	
 	//Dont let the player start a line in open space.
 	//Force them to start drawing form the last success node.

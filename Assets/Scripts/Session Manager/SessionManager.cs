@@ -13,7 +13,7 @@ public class SessionManager : MonoBehaviour
 	[SerializeField] private string deviceUniqueIdentifier;
 
 	private Session session;
-	
+
 	[SerializeField] private string sessionDuration;
 	public string SessionDuration { get{ return sessionDuration; } set{ sessionDuration = value; }  }
 
@@ -26,6 +26,8 @@ public class SessionManager : MonoBehaviour
 		deviceModel = SystemInfo.deviceModel;
 		deviceType = SystemInfo.deviceType.ToString();
 		deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
+
+		
 
 	}
 	
@@ -50,6 +52,9 @@ public class SessionManager : MonoBehaviour
 		session.SessionDuration = sessionDuration;
 		session.SessionName = "Trail Maker";
 		session.SessionNumber = 22;
+
+
+		PersistenceManager.Instance.FileName = "sessionInfo.dat";
 		
 
 
@@ -64,6 +69,11 @@ public class SessionManager : MonoBehaviour
 			t.TransistionName = t.Source + "-" + t.Destination;
 			session.transistions.Add( t );
 			//Debug.Log( session.transistions.Count );
+
+			PersistenceManager.Instance.Save( session );
+			
+			
+
 		}
 		else
 		{
@@ -82,7 +92,10 @@ public class SessionManager : MonoBehaviour
 	{
 		
 		session.SessionDuration = sessionDuration;
-		SessionToJson();
+		
+		PersistenceManager.Instance.Save( session );
+
+		//SessionToJson();
 	}
 
 
@@ -96,23 +109,7 @@ public class SessionManager : MonoBehaviour
 	}
 
 
-	private void SessionToJson()
-	{
-
-		if( session != null )
-		{
-			var jsonString = JsonConvert.SerializeObject( session );
-
-			Debug.Log( jsonString );
-
-		}
-		else
-		{
-			Debug.Log( "No Valid Session Found..." );
-		}
-		
-		
-	}
+	
 
 	
 }

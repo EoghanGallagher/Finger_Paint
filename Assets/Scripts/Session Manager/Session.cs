@@ -7,7 +7,7 @@ namespace GameSessions
 {
 
 	[System.Serializable]
-	public class Session  
+	public class Session : IPersistence
 	{
 
 		public string SessionName { get; set; } // Do i need this ?
@@ -25,6 +25,11 @@ namespace GameSessions
 		public int TransitionCount { get; set; }
 
 		public  List<Transition> transistions = new List<Transition>(); //Number of transitions that occured during a session
+	
+		 public const string nameOfFile = "session.dat";
+    	public string FileName { get { return nameOfFile; } }
+	
+	
 	}
 
 
