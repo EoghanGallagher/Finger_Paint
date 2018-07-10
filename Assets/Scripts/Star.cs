@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameSessions;
 
 public class Star : MonoBehaviour 
 {
@@ -10,22 +11,18 @@ public class Star : MonoBehaviour
 	private LinkHandler linkHandler;
 	private Transform _transform;
 	private Material _material;
-
 	private Color originalColour;
 	private Color errorColour = new Color( 0.9433f, 0.1382f, 0.0934f );
 	private Color successColour;
-
 	private DrawLineMouse _drawLineHandler;
-
 	private Collider2D _collider2D;
-
 	private bool isOkToDrawLine;
 	private bool isOkToColor = false;
-
 	private GameManager gameManager;
-
-	SpriteRenderer starSpriteRenderer;
-	Transform star;
+	private SessionManager sessionManager;
+	private TransitionManager transitionManager;
+	private SpriteRenderer starSpriteRenderer;
+	private Transform star;
 	
 	void Start()
 	{
@@ -39,6 +36,13 @@ public class Star : MonoBehaviour
 		
 		linkHandler = Object.FindObjectOfType<LinkHandler>();
 		gameManager = Object.FindObjectOfType<GameManager>();
+
+		if( gameManager != null )
+		{
+			sessionManager = gameManager.GetComponent<SessionManager>();
+			transitionManager = gameManager.GetComponent<TransitionManager>();
+		}
+
 
 		_material = GetComponent<Renderer>().material;
 
@@ -56,8 +60,10 @@ public class Star : MonoBehaviour
 	//Detect when line intersects star 
 	void OnTriggerEnter2D( Collider2D other )
 	{	
+	
 	   if( other.name.Equals( "DrawnLine" ) )
 			StartCoroutine( "StarSequence" );
+
 	}
 
 	IEnumerator StarSequence()
@@ -67,6 +73,35 @@ public class Star : MonoBehaviour
 		//Check if last star clicked is one less than current star
 		if( StarManager.previousStar == ( starValue - 1 ) )
 		{
+			//Check if Transition manager exists and check if a transition is already active
+			if( transitionManager != null &&  !transitionManager.IsTransitionOpen )
+			{
+				//If a transition is not active then Create one
+				transitionManager.CreateTransition();
+
+				//Set the source for the transition 
+				transitionManager.TransitionSource = gameObject.name;
+			}
+			else
+			{
+				//Set the transitions destination ..only if its the correct destination
+				transitionManager.TransitionDestination = gameObject.name;
+				
+				//End the transition and add it to the transition list
+				Transition currentTransition = transitionManager.EndTransition(); 
+
+				if( currentTransition != null )
+				{
+					sessionManager.AddTransition( currentTransition );	
+				}
+				
+				//Start a new Transition.
+				transitionManager.CreateTransition();
+				//Set the source for the transition
+				transitionManager.TransitionSource = gameObject.name;
+			}
+			
+			//Set the star materials color to gold ( indicating success )
 			_material.color = successColour;
 
 			if( _drawLineHandler )
@@ -76,6 +111,7 @@ public class Star : MonoBehaviour
 				_drawLineHandler.LastNode = _transform;
 				gameManager.UpdateScore();
 
+				//Punch animation when correct star is encountered
 				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
 
 				starSpriteRenderer.color = new Color( 0.9716f, 0.8722f, 0.1512f, 1 );
@@ -92,14 +128,6 @@ public class Star : MonoBehaviour
 			StarManager.previousStar = starValue;
 			StarManager.previousStarObject = this;
 
-		
-		
-			//Disable Collider after it has been succssfully selected
-			//if( _collider2D )
-				//_collider2D.enabled = false;
-
-			
-		
 		}
 		if( StarManager.previousStar == starValue )
 		{
@@ -107,9 +135,10 @@ public class Star : MonoBehaviour
 		}
 		else
 		{
-			//Consequences of picking the wrong star
+			//Consequences of picking the wrong star . Make star shake 
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
 		
+			//Tween between stars original colour and red and back
 			isOkToColor = true;
 			    iTween.ValueTo (gameObject, iTween.Hash (
 					"from", errorColour, 
