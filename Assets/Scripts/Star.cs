@@ -7,6 +7,9 @@ public class Star : MonoBehaviour
 {
 
 	[SerializeField] private int starValue = 0;
+	[SerializeField] private bool isStarLetter;
+
+	public bool IsStarLetter { get{ return isStarLetter; } set{ isStarLetter = value; } }
 
 	private LinkHandler linkHandler;
 	private Transform _transform;
@@ -54,8 +57,6 @@ public class Star : MonoBehaviour
 		
 		isOkToDrawLine = true; //A check to prevent the player from drawing a line to the wrong selection twice
 	}
-
-
 
 	//Detect when line intersects star 
 	void OnTriggerEnter2D( Collider2D other )
@@ -133,8 +134,36 @@ public class Star : MonoBehaviour
 		{
 			//Do Absolutely nothing for the moment...
 		}
-		else
+		else //Error E.G. Player clicked on wrong star
 		{
+			
+			Error err = new Error(); //Create new instance of error class
+
+			err.Source = StarManager.previousStarObject.name;
+			err.Destination = this.name;
+			err.ErrorTimeStamp = System.DateTime.Now.ToString();
+
+			//Check the type of error that occured
+			if( StarManager.previousStarObject.IsStarLetter && this.IsStarLetter ) //letter to letter error
+			{
+				err.ErrorType = "Preservative Error"; //Set the type of error that occured
+			}
+			else if( !StarManager.previousStarObject.IsStarLetter && !this.IsStarLetter ) //number to number error
+			{
+				err.ErrorType = "Preservative Error"; //Set the type of error that occured
+			}
+			else if( !StarManager.previousStarObject.IsStarLetter && this.IsStarLetter ) //number to letter error
+			{
+				err.ErrorType = "Number to Letter Error";
+			}
+			else if( StarManager.previousStarObject.IsStarLetter && !this.IsStarLetter ) //letter to number error
+			{
+				err.ErrorType = "Letter to number error";
+			}
+
+			
+			transitionManager.AddError( err ); //Add the error to the error list for this transition
+
 			//Consequences of picking the wrong star . Make star shake 
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
 		

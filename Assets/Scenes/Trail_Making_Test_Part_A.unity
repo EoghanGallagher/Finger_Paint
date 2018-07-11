@@ -1083,6 +1083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 19
+  isStarLetter: 0
 --- !u!212 &85342604
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1376,6 +1377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 12
+  isStarLetter: 0
 --- !u!212 &163377678
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1640,6 +1642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 16
+  isStarLetter: 0
 --- !u!212 &188777815
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3096,6 +3099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 7
+  isStarLetter: 0
 --- !u!212 &516630967
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3757,6 +3761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 8
+  isStarLetter: 0
 --- !u!212 &629070189
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3957,6 +3962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 13
+  isStarLetter: 0
 --- !u!212 &758675400
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4088,6 +4094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 22
+  isStarLetter: 0
 --- !u!212 &765108496
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4219,6 +4226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 18
+  isStarLetter: 0
 --- !u!212 &781356552
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4350,6 +4358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 17
+  isStarLetter: 0
 --- !u!212 &803754857
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4481,6 +4490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 14
+  isStarLetter: 0
 --- !u!212 &807391265
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5117,6 +5127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 4
+  isStarLetter: 0
 --- !u!212 &879983611
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5333,6 +5344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 11
+  isStarLetter: 0
 --- !u!212 &890276892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5872,6 +5884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 6
+  isStarLetter: 0
 --- !u!212 &985788605
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6305,7 +6318,7 @@ Prefab:
     - target: {fileID: 114729416189708376, guid: 0bfc2e077e75c47538368110b6b98f4c,
         type: 2}
       propertyPath: istutorial
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114729416189708376, guid: 0bfc2e077e75c47538368110b6b98f4c,
         type: 2}
@@ -7320,6 +7333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 2
+  isStarLetter: 0
 --- !u!212 &1149204011
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7754,6 +7768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 15
+  isStarLetter: 0
 --- !u!212 &1235992871
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8007,6 +8022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 1
+  isStarLetter: 0
 --- !u!212 &1425123156
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8138,6 +8154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 5
+  isStarLetter: 0
 --- !u!212 &1450807370
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9248,6 +9265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 9
+  isStarLetter: 0
 --- !u!212 &1600904964
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9379,6 +9397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 0
+  isStarLetter: 0
 --- !u!212 &1611930890
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9874,6 +9893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 20
+  isStarLetter: 0
 --- !u!212 &1645840098
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10209,6 +10229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 21
+  isStarLetter: 0
 --- !u!212 &1699778990
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11027,6 +11048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 24
+  isStarLetter: 0
 --- !u!212 &1826986926
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11566,6 +11588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 23
+  isStarLetter: 0
 --- !u!212 &1875316944
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12589,6 +12612,91 @@ Prefab:
       propertyPath: m_Radius
       value: 0.14
       objectReference: {fileID: 0}
+    - target: {fileID: 114666524340155652, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: starType
+      value: number
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007368701869608, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: starType
+      value: letter
+      objectReference: {fileID: 0}
+    - target: {fileID: 114579472576845412, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: starType
+      value: number
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222550730941702, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: starType
+      value: letter
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229388259303182, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: starType
+      value: number
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007368701869608, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222550730941702, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114660609473085564, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114601544084623784, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114573327012721460, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114652064744372006, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114211447797004344, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114839038960129390, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114471480304229904, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114819442708337164, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114009508467712078, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114076465058064632, guid: 587f920d49aec49a8bce7784ab0b60ef,
+        type: 2}
+      propertyPath: isStarLetter
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 587f920d49aec49a8bce7784ab0b60ef, type: 2}
   m_IsPrefabParent: 0
@@ -12717,6 +12825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 10
+  isStarLetter: 0
 --- !u!212 &1983695177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13049,6 +13158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starValue: 3
+  isStarLetter: 0
 --- !u!212 &2048234524
 SpriteRenderer:
   m_ObjectHideFlags: 0

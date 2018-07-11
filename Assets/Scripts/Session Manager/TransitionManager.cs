@@ -78,6 +78,11 @@ public class TransitionManager : MonoBehaviour
 		transition.TransitionTime = minutes + ":" + seconds;
 	}
 
+	public void AddError(  Error err  )
+	{
+		transition.transitionErrors.Add( err );
+	}
+
 
 	
 }

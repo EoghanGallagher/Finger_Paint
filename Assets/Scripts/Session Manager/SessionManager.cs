@@ -26,9 +26,6 @@ public class SessionManager : MonoBehaviour
 		deviceModel = SystemInfo.deviceModel;
 		deviceType = SystemInfo.deviceType.ToString();
 		deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
-
-		
-
 	}
 	
 	// Use this for initialization
@@ -53,11 +50,8 @@ public class SessionManager : MonoBehaviour
 		session.SessionName = "Trail Maker";
 		session.SessionNumber = 22;
 
-
-		PersistenceManager.Instance.FileName = "sessionInfo.dat";
-		
-
-
+		//PersistenceManager.Instance.FileName = "sessionInfo.dat";
+	
 	}
 
 	public void AddTransition( Transition t )
@@ -70,7 +64,7 @@ public class SessionManager : MonoBehaviour
 			session.transistions.Add( t );
 			//Debug.Log( session.transistions.Count );
 
-			PersistenceManager.Instance.Save( session );
+		//	PersistenceManager.Instance.Save( session );
 			
 			
 
@@ -93,7 +87,11 @@ public class SessionManager : MonoBehaviour
 		
 		session.SessionDuration = sessionDuration;
 		
-		PersistenceManager.Instance.Save( session );
+		//PersistenceManager.Instance.Save( session );
+
+		string jsonString = JsonConvert.SerializeObject( session );
+
+		Debug.Log( jsonString );
 
 		//SessionToJson();
 	}
