@@ -20,6 +20,8 @@ public class TransitionManager : MonoBehaviour
 	public string TransitionSource { set{ transition.Source = value; } get{ return transition.Source; }  }
 	public string TransitionDestination { set{ transition.Destination = value; } get{ return transition.Destination; }  }
 
+	public int TransitionErrorCount { set{ transition.ErrorCount = value; } get{ return transition.ErrorCount; } }
+
 	private void Start()
 	{
 		//startTime = Time.time;

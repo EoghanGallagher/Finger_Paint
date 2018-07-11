@@ -16,5 +16,7 @@ public class Transition
 
 	public bool TransitionComplete { get; set; }
 
+	public int ErrorCount { get; set; }
+
 	public List <Error> transitionErrors = new List<Error>(); 
 }

@@ -136,7 +136,9 @@ public class Star : MonoBehaviour
 		}
 		else //Error E.G. Player clicked on wrong star
 		{
-			
+		    
+			transitionManager.TransitionErrorCount ++; //Total number or errors for this transition
+
 			Error err = new Error(); //Create new instance of error class
 
 			err.Source = StarManager.previousStarObject.name;
