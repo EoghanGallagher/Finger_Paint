@@ -9,6 +9,8 @@ public class Star : MonoBehaviour
 	[SerializeField] private int starValue = 0;
 	[SerializeField] private bool isStarLetter;
 
+	[SerializeField] private GameObject[] proximityStars = new GameObject[ 5 ];
+
 	public bool IsStarLetter { get{ return isStarLetter; } set{ isStarLetter = value; } }
 
 	private LinkHandler linkHandler;
