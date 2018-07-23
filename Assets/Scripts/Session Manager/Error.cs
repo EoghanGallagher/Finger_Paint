@@ -5,7 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class Error
 {
-	public string ErrorType { get; set; }  //Error Types : Proximity , Preservative 
+	public bool ProximityError { get; set; }
+	public bool PreservativeError { get; set; }
+
+	public bool NumberToLetterError { get; set; }
+
+	public bool LetterToNumberError { get; set; }
+
 	public string Source{ get; set; } //Transition source
 	public string Destination{ get; set; } //Transition Destination
 	public string ErrorTimeStamp{ get; set; } //Time of error

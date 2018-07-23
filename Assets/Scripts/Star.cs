@@ -11,6 +11,9 @@ public class Star : MonoBehaviour
 
 	[SerializeField] private GameObject[] proximityStars = new GameObject[ 5 ];
 
+	public GameObject[] ProximityStars { get{ return proximityStars; } }
+
+
 	public bool IsStarLetter { get{ return isStarLetter; } set{ isStarLetter = value; } }
 
 	private LinkHandler linkHandler;
@@ -132,7 +135,7 @@ public class Star : MonoBehaviour
 			StarManager.previousStarObject = this;
 
 		}
-		if( StarManager.previousStar == starValue )
+		else if( StarManager.previousStar == starValue )
 		{
 			//Do Absolutely nothing for the moment...
 		}
@@ -147,27 +150,44 @@ public class Star : MonoBehaviour
 			err.Destination = this.name;
 			err.ErrorTimeStamp = System.DateTime.Now.ToString();
 
+			
+			//Check previous stars list of proximity stars
+			//if a player accidently hits a star contained in this list , then that constitutes a proximity error
+			if( StarManager.previousStarObject.ProximityStars.Length > 0 )
+			{
+			
+				foreach( GameObject g in StarManager.previousStarObject.ProximityStars )
+				{
+					if( this.name.Equals( g.name ) )
+					{
+						err.ProximityError = true;
+					}
+				}
+
+			}
+
+
 			//Check the type of error that occured
 			if( StarManager.previousStarObject.IsStarLetter && this.IsStarLetter ) //letter to letter error
 			{
-				err.ErrorType = "Preservative Error"; //Set the type of error that occured
+				err.PreservativeError = true;
 			}
 			else if( !StarManager.previousStarObject.IsStarLetter && !this.IsStarLetter ) //number to number error
 			{
-				err.ErrorType = "Preservative Error"; //Set the type of error that occured
+				
+				err.PreservativeError = true;
 			}
 			else if( !StarManager.previousStarObject.IsStarLetter && this.IsStarLetter ) //number to letter error
 			{
-				err.ErrorType = "Number to Letter Error";
+				err.NumberToLetterError = true;
 			}
 			else if( StarManager.previousStarObject.IsStarLetter && !this.IsStarLetter ) //letter to number error
 			{
-				err.ErrorType = "Letter to number error";
+				err.LetterToNumberError = true;
 			}
 
-			
 			transitionManager.AddError( err ); //Add the error to the error list for this transition
-
+		
 			//Consequences of picking the wrong star . Make star shake 
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
 		
