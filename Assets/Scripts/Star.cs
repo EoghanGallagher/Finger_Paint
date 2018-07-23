@@ -19,11 +19,10 @@ public class Star : MonoBehaviour
 	private LinkHandler linkHandler;
 	private Transform _transform;
 	private Material _material;
-	private Color originalColour;
-	private Color errorColour = new Color( 0.9433f, 0.1382f, 0.0934f );
-	private Color successColour;
+	private Color originalColour; //Original Colour of Star ( Purple ) used as a buffer
+	private Color errorColour = new Color( 0.9433f, 0.1382f, 0.0934f ); //Red
+	private Color successColour; //Gold 
 	private DrawLineMouse _drawLineHandler;
-	private Collider2D _collider2D;
 	private bool isOkToDrawLine;
 	private bool isOkToColor = false;
 	private GameManager gameManager;
@@ -55,8 +54,6 @@ public class Star : MonoBehaviour
 		_material = GetComponent<Renderer>().material;
 
 		_drawLineHandler = GameObject.Find( "Main Camera" ).GetComponent<DrawLineMouse>();
-
-		_collider2D = GetComponent<Collider2D>();
 
 		originalColour = starSpriteRenderer.color;
 		
@@ -115,6 +112,8 @@ public class Star : MonoBehaviour
 				StarManager.lastSuccessPointCount = _drawLineHandler.PointCount;
 				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
 				_drawLineHandler.LastNode = _transform;
+				
+				//Refactor replace with message
 				gameManager.UpdateScore();
 
 				//Punch animation when correct star is encountered
@@ -144,7 +143,6 @@ public class Star : MonoBehaviour
 		    
 			Star previousStarObject = StarManager.previousStarObject;
 
-
 			transitionManager.TransitionErrorCount ++; //Total number or errors for this transition
 
 			Error err = new Error(); //Create new instance of error class
@@ -152,9 +150,6 @@ public class Star : MonoBehaviour
 			err.Source = previousStarObject.name;
 			err.Destination = this.name;
 			err.ErrorTimeStamp = System.DateTime.Now.ToString();
-
-			
-			
 
 			//Check previous stars list of proximity stars
 			//if a player accidently hits a star contained in this list , then that constitutes a proximity error
@@ -217,7 +212,6 @@ public class Star : MonoBehaviour
 	
 	//Dont let the player start a line in open space.
 	//Force them to start drawing form the last success node.
-
 	void OnMouseDown()
 	{
 		if( _drawLineHandler.LastNode.name.Equals( gameObject.name ) )
