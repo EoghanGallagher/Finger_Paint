@@ -116,6 +116,12 @@ public class Star : MonoBehaviour
 				//Refactor replace with message
 				gameManager.UpdateScore();
 
+
+				//Play Success sound effect
+				//Message broadcast : PlaySound takes an int as a parameter 
+				//Subscribers : SoundManager
+				Messenger<int>.Broadcast( "PlaySound" , 0 );
+
 				//Punch animation when correct star is encountered
 				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
 
@@ -190,6 +196,11 @@ public class Star : MonoBehaviour
 			//Consequences of picking the wrong star . Make star shake 
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
 		
+			//Play Error Sound
+			//Message broadcast : PlaySound takes an int as a parameter 
+			//Subscribers : SoundManager
+			Messenger<int>.Broadcast( "PlaySound" , 1 );
+
 			//Tween between stars original colour and red and back
 			isOkToColor = true;
 			    iTween.ValueTo (gameObject, iTween.Hash (
