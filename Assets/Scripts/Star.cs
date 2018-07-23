@@ -142,23 +142,28 @@ public class Star : MonoBehaviour
 		else //Error E.G. Player clicked on wrong star
 		{
 		    
+			Star previousStarObject = StarManager.previousStarObject;
+
+
 			transitionManager.TransitionErrorCount ++; //Total number or errors for this transition
 
 			Error err = new Error(); //Create new instance of error class
 
-			err.Source = StarManager.previousStarObject.name;
+			err.Source = previousStarObject.name;
 			err.Destination = this.name;
 			err.ErrorTimeStamp = System.DateTime.Now.ToString();
 
 			
+			
+
 			//Check previous stars list of proximity stars
 			//if a player accidently hits a star contained in this list , then that constitutes a proximity error
-			if( StarManager.previousStarObject.ProximityStars.Length > 0 )
+			if( previousStarObject.ProximityStars[0] != null )
 			{
 			
-				foreach( GameObject g in StarManager.previousStarObject.ProximityStars )
+				foreach( GameObject g in previousStarObject.ProximityStars )
 				{
-					if( this.name.Equals( g.name ) )
+					if( this.name.Equals( g.name ) && g.name != null )
 					{
 						err.ProximityError = true;
 					}
@@ -168,20 +173,19 @@ public class Star : MonoBehaviour
 
 
 			//Check the type of error that occured
-			if( StarManager.previousStarObject.IsStarLetter && this.IsStarLetter ) //letter to letter error
+			if( previousStarObject.IsStarLetter && this.IsStarLetter ) //letter to letter error
 			{
 				err.PreservativeError = true;
 			}
-			else if( !StarManager.previousStarObject.IsStarLetter && !this.IsStarLetter ) //number to number error
+			else if( !previousStarObject.IsStarLetter && !this.IsStarLetter ) //number to number error
 			{
-				
 				err.PreservativeError = true;
 			}
-			else if( !StarManager.previousStarObject.IsStarLetter && this.IsStarLetter ) //number to letter error
+			else if( !previousStarObject.IsStarLetter && this.IsStarLetter ) //number to letter error
 			{
 				err.NumberToLetterError = true;
 			}
-			else if( StarManager.previousStarObject.IsStarLetter && !this.IsStarLetter ) //letter to number error
+			else if( previousStarObject.IsStarLetter && !this.IsStarLetter ) //letter to number error
 			{
 				err.LetterToNumberError = true;
 			}
