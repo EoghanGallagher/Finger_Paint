@@ -13,12 +13,19 @@ public class SessionManager : MonoBehaviour
 	[SerializeField] private string deviceUniqueIdentifier;
 
 	private Session session;
+	public Session CurrentSession { get{ return session; } }
 
 	[SerializeField] private string sessionDuration;
 	public string SessionDuration { get{ return sessionDuration; } set{ sessionDuration = value; }  }
 
 	[SerializeField] private string transitionDuration;
 	public string TransitionDuration { get{ return transitionDuration; } set{ transitionDuration = value; }  }
+
+
+	[SerializeField] private string sessionUid;
+
+
+ 
 	
 	void Start()
 	{
@@ -26,6 +33,8 @@ public class SessionManager : MonoBehaviour
 		deviceModel = SystemInfo.deviceModel;
 		deviceType = SystemInfo.deviceType.ToString();
 		deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
+
+		
 	}
 	
 	// Use this for initialization
@@ -37,6 +46,10 @@ public class SessionManager : MonoBehaviour
 	public void CreateSession()
 	{
 	
+		sessionUid = System.Guid.NewGuid().ToString();
+
+		Debug.Log( sessionUid );
+
 		session =  new Session();
 
 		session.DeviceType = deviceType;
@@ -47,10 +60,10 @@ public class SessionManager : MonoBehaviour
 		session.PlayerID = "player00001";
 		session.TimeStamp = System.DateTime.Now.ToString();
 		session.SessionDuration = sessionDuration;
-		session.SessionName = "Trail Maker";
+		session.SessionName = "trail_maker_session_" +  sessionUid;
 		session.SessionNumber = 22;
 
-		//PersistenceManager.Instance.FileName = "sessionInfo.dat";
+		PersistenceManager.Instance.FileName = session.SessionName + ".dat";
 	
 	}
 
@@ -64,7 +77,7 @@ public class SessionManager : MonoBehaviour
 			session.transistions.Add( t );
 			//Debug.Log( session.transistions.Count );
 
-		//	PersistenceManager.Instance.Save( session );
+			PersistenceManager.Instance.Save( session );
 			
 			
 
@@ -84,13 +97,16 @@ public class SessionManager : MonoBehaviour
 
 	public void EndSession()
 	{
-		
+		//Get the duration of the session
 		session.SessionDuration = sessionDuration;
 		
-		//PersistenceManager.Instance.Save( session );
+		//Save the session
+		PersistenceManager.Instance.Save( session );
 
+		//convert the session to json just for testing. 
 		string jsonString = JsonConvert.SerializeObject( session );
 
+	
 		Debug.Log( jsonString );
 
 		//SessionToJson();

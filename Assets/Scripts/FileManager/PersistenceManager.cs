@@ -13,6 +13,8 @@ public class PersistenceManager : MonoBehaviour
 	private string fileName;
 	public string FileName { get{ return fileName; } set{ fileName = value; Debug.Log( fileName ); } }
 
+	private string path;
+
 	void Awake()
 	{
 		Environment.SetEnvironmentVariable( "MONO_REFLECTION_SERIALIZER", "yes" );
@@ -22,9 +24,7 @@ public class PersistenceManager : MonoBehaviour
 	void Start()
 	{
 		
-		fileName = "sessionInfo.dat";
-
-		Debug.Log( fileName );
+		path = GetPath() + "upload/";
 		
 		System.Object obj = Load( fileName );
 		
@@ -41,10 +41,12 @@ public class PersistenceManager : MonoBehaviour
 
 	public void Save( System.Object objectToSave ) 
 	{
-    	Debug.Log("Saving " +  GetPath() + fileName );
+    	Debug.Log("Saving " +  GetPath() + "upload/" + fileName );
+
+		
 		
 		BinaryFormatter formatter = new BinaryFormatter();
-    	FileStream file = File.Open(  GetPath() + fileName, FileMode.OpenOrCreate );
+    	FileStream file = File.Open(  path + fileName, FileMode.OpenOrCreate );
     	formatter.Serialize( file, objectToSave );
     	file.Close();
 	}
@@ -53,12 +55,11 @@ public class PersistenceManager : MonoBehaviour
 	{
     	var serializedObject = new System.Object();
 
-		Debug.Log( GetPath() + nameOfFile );
-	
-    	if( File.Exists( GetPath()  + nameOfFile ) ) 
+		
+    	if( File.Exists( path + nameOfFile ) ) 
 		{
         	BinaryFormatter formatter = new BinaryFormatter();
-        	FileStream file = File.Open( GetPath() + nameOfFile, FileMode.Open );
+        	FileStream file = File.Open( path + nameOfFile, FileMode.Open );
         	serializedObject = formatter.Deserialize( file );
         	file.Close();
     	}

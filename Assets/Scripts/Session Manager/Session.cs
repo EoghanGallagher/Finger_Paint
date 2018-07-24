@@ -7,10 +7,10 @@ namespace GameSessions
 {
 
 	[System.Serializable]
-	public class Session : IPersistence
+	public class Session
 	{
 
-		public string SessionName { get; set; } // Do i need this ?
+		public string SessionName { get; set; } // Do i need this ? Yes i do :) format: trail_maker_session_uid
 		public int SessionNumber { get; set; } //unique number
 		public string PlayerID { get; set; } //Which player?
 		public string GameID { get; set; } //which game ?
@@ -26,7 +26,7 @@ namespace GameSessions
 
 		public  List<Transition> transistions = new List<Transition>(); //Number of transitions that occured during a session
 	
-		 public const string nameOfFile = "session.dat";
+		 private string nameOfFile = "session.dat";
     	public string FileName { get { return nameOfFile; } }
 	
 	

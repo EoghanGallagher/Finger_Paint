@@ -211,6 +211,9 @@ public class Star : MonoBehaviour
 					"onUpdate","UpdateColor"));
 			
 			_drawLineHandler.DestroyLine();
+			_drawLineHandler.CreateLine();
+
+		
 		}
 	
 	}

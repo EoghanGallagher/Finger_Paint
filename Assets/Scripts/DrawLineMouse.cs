@@ -78,9 +78,12 @@ public class DrawLineMouse : MonoBehaviour
 			{
 				CreateLine();
 			}	
-			//RedrawLine();
+			
 			if( !line.collider )
 				line.collider = true;
+			
+			//RedrawLine();
+			
 			
 			if ( line3D ) 
 			{
@@ -216,7 +219,7 @@ public class DrawLineMouse : MonoBehaviour
 		canDraw = false;
 	}
 
-	private void CreateLine()
+	public void CreateLine()
 	{
 			Texture2D tex = null;
 		float useLineWidth = 0;
