@@ -121,6 +121,7 @@ public class Star : MonoBehaviour
 				//Message broadcast : PlaySound takes an int as a parameter 
 				//Subscribers : SoundManager
 				Messenger<int>.Broadcast( "PlaySound" , 0 );
+				Handheld.Vibrate();
 
 				//Punch animation when correct star is encountered
 				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
@@ -195,6 +196,7 @@ public class Star : MonoBehaviour
 		
 			//Consequences of picking the wrong star . Make star shake 
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
+			Handheld.Vibrate();
 		
 			//Play Error Sound
 			//Message broadcast : PlaySound takes an int as a parameter 

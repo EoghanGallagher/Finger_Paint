@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json; //Json Library
 using System.IO;
+using UnityEngine.Networking;
 
 
 public class FileUploadHandler : MonoBehaviour 
 {
 
-	string path = "";
-	string destinationPath;
+	private string path = "";
+	private string destinationPath;
+
+	private string jsonString;
+
+	private static readonly string POSTSessionURL = "http://localhost:8080/api/session";
+
+
 
 	void Start()
 	{
@@ -38,12 +45,16 @@ public class FileUploadHandler : MonoBehaviour
 			System.Object obj = PersistenceManager.Instance.Load( f.Name );
 			
 			//Convert the file to JSON
-			string jsonString = JsonConvert.SerializeObject( obj );
+			jsonString = JsonConvert.SerializeObject( obj );
 
 			//Display the file
 			Debug.Log( jsonString );
 
 			//Upload the file
+			var res =  StartCoroutine( POST() );
+
+			Debug.Log( res );
+			
 
 			//TODO
 
@@ -54,6 +65,40 @@ public class FileUploadHandler : MonoBehaviour
 
 
 		
+	}
+
+	private IEnumerator POST()
+	{
+	
+		Debug.Log( "Posting Json to server..." + jsonString );
+
+		UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000/session", jsonString );
+		www.SetRequestHeader("Accept", "application/json");
+		yield return www.SendWebRequest();
+
+		Debug.Log( "Got this far...." + www.downloadHandler.text );
+
+			
+		
+	}
+
+
+
+	IEnumerator WaitForRequest( WWW data )
+	{
+		Debug.Log( "Uploading Json...." );
+		yield return data;
+
+		Debug.Log( "Got this far ..." );
+
+		if( data.error != null )
+		{
+			Debug.Log( data.error );
+		}
+		else
+		{
+			Debug.Log( "WWW Request : " + data.text );
+		}
 	}
 
 		//Return a valid filepath for various devices...
