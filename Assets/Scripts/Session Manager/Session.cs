@@ -26,8 +26,7 @@ namespace GameSessions
 
 		public  List<Transition> transistions = new List<Transition>(); //Number of transitions that occured during a session
 	
-		 private string nameOfFile = "session.dat";
-    	public string FileName { get { return nameOfFile; } }
+    	public string FileName { get; set; }
 	
 	
 	}

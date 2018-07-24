@@ -64,6 +64,7 @@ public class SessionManager : MonoBehaviour
 		session.SessionNumber = 22;
 
 		PersistenceManager.Instance.FileName = session.SessionName + ".dat";
+		session.FileName = session.SessionName + ".dat";
 	
 	}
 
@@ -103,13 +104,6 @@ public class SessionManager : MonoBehaviour
 		//Save the session
 		PersistenceManager.Instance.Save( session );
 
-		//convert the session to json just for testing. 
-		string jsonString = JsonConvert.SerializeObject( session );
-
-	
-		Debug.Log( jsonString );
-
-		//SessionToJson();
 	}
 
 

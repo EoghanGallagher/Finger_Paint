@@ -43,8 +43,6 @@ public class PersistenceManager : MonoBehaviour
 	{
     	Debug.Log("Saving " +  GetPath() + "upload/" + fileName );
 
-		
-		
 		BinaryFormatter formatter = new BinaryFormatter();
     	FileStream file = File.Open(  path + fileName, FileMode.OpenOrCreate );
     	formatter.Serialize( file, objectToSave );

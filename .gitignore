@@ -5,6 +5,7 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 gameTest1/
+Assets/sent/
 
 # Visual Studio cache directory
 .vs/
