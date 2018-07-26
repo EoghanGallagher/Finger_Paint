@@ -24,7 +24,7 @@ namespace GameSessions
 
 		public int TransitionCount { get; set; }
 
-		public  List<Transition> transistions = new List<Transition>(); //Number of transitions that occured during a session
+		public  List<Transition> transitions = new List<Transition>(); //Number of transitions that occured during a session
 	
     	public string FileName { get; set; }
 	

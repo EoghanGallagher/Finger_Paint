@@ -47,11 +47,13 @@ public class FileUploadHandler : MonoBehaviour
 			//Convert the file to JSON
 			jsonString = JsonConvert.SerializeObject( obj );
 
+			//jsonString = JsonUtility.ToJson( obj );
+
 			//Display the file
 			Debug.Log( jsonString );
 
 			//Upload the file
-			var res =  StartCoroutine( POST() );
+			var res =  StartCoroutine( PUT() );
 
 			Debug.Log( res );
 			
@@ -67,19 +69,19 @@ public class FileUploadHandler : MonoBehaviour
 		
 	}
 
-	private IEnumerator POST()
+	//Send Put Request to the web server
+	//Send the session data as a json string.
+	private IEnumerator PUT()
 	{
 	
-		Debug.Log( "Posting Json to server..." + jsonString );
+		Debug.Log( jsonString );
 
-		UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000/session", jsonString );
-		www.SetRequestHeader("Accept", "application/json");
+		UnityWebRequest www = UnityWebRequest.Put("http://localhost:5000/session", jsonString );
+		www.SetRequestHeader("Content-Type", "application/json");
 		yield return www.SendWebRequest();
 
 		Debug.Log( "Got this far...." + www.downloadHandler.text );
 
-			
-		
 	}
 
 

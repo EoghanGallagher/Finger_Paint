@@ -75,7 +75,7 @@ public class SessionManager : MonoBehaviour
 			session.TransitionCount ++;
 			t.TransitionNo = session.TransitionCount;
 			t.TransistionName = t.Source + "-" + t.Destination;
-			session.transistions.Add( t );
+			session.transitions.Add( t );
 			//Debug.Log( session.transistions.Count );
 
 			PersistenceManager.Instance.Save( session );
