@@ -24,6 +24,8 @@ public class SessionManager : MonoBehaviour
 
 	[SerializeField] private string sessionUid;
 
+	[SerializeField] private int sessionCount;
+
 
  
 	
@@ -33,6 +35,16 @@ public class SessionManager : MonoBehaviour
 		deviceModel = SystemInfo.deviceModel;
 		deviceType = SystemInfo.deviceType.ToString();
 		deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
+
+		
+		if( PlayerPrefs.HasKey("SessionCount") )
+		{
+			sessionCount = PlayerPrefs.GetInt("SessionCount");
+		}
+		else
+		{
+			sessionCount = 0;
+		}
 
 		
 	}
@@ -46,6 +58,8 @@ public class SessionManager : MonoBehaviour
 	public void CreateSession()
 	{
 	
+		sessionCount ++;
+
 		sessionUid = System.Guid.NewGuid().ToString();
 
 		Debug.Log( sessionUid );
@@ -61,7 +75,7 @@ public class SessionManager : MonoBehaviour
 		session.TimeStamp = System.DateTime.Now.ToString();
 		session.SessionDuration = sessionDuration;
 		session.SessionName = "trail_maker_session_" +  sessionUid;
-		session.SessionNumber = 22;
+		session.SessionNumber = sessionCount;
 
 		PersistenceManager.Instance.FileName = session.SessionName + ".dat";
 		session.FileName = session.SessionName + ".dat";
@@ -103,6 +117,9 @@ public class SessionManager : MonoBehaviour
 		
 		//Save the session
 		PersistenceManager.Instance.Save( session );
+
+		//Save Session Count
+		PlayerPrefs.SetInt( "SessionCount" , sessionCount );
 
 	}
 
