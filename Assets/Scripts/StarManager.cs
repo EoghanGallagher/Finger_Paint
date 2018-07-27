@@ -29,7 +29,7 @@ public class StarManager : MonoBehaviour
 			Destroy( gameObject );
 		}
 
-		DontDestroyOnLoad( gameObject );
+		//DontDestroyOnLoad( gameObject );
 	}
 
 	void Start()
