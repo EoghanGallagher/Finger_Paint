@@ -54,17 +54,17 @@ public class SoundManager : MonoBehaviour
 	public void PlaySound( int id )
 	{
 
-		Debug.Log( "Sound ID: " + id );
-		// Sound s = Array.Find( sounds , sound => sound.id == id );
+		Debug.Log( "Playing Sound ID: " + id );
+		Sound s = Array.Find( sounds , sound => sound.id == id );
 
-		// if( s == null )
-		// {
-		// 	Debug.Log( "Sound not found..." );
-		// }
-		// else
-		// {
-		// 	s.source.Play();
-		// }	
+		if( s == null )
+		{
+			Debug.Log( "Sound not found..." );
+		}
+		else
+		{
+			s.source.Play();
+		}	
 	}
 
 	public void StopSound( int id )
