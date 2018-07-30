@@ -10,7 +10,9 @@ using UnityEngine.SceneManagement;
 public class LevelHandler : MonoBehaviour 
 {
 	[SerializeField] private  GameObject[] levelList; //List of levels
+	[SerializeField] private GameObject[] demoList; //List of demo levels
 	[SerializeField] int currentLevel = 0;
+	[SerializeField] bool demoMode;
 
 
 	void Start()
@@ -27,6 +29,8 @@ public class LevelHandler : MonoBehaviour
 
 		//Activate the current level
 		SetActiveLevel();
+		
+		    
 	}
 
 
@@ -35,6 +39,7 @@ public class LevelHandler : MonoBehaviour
 	{
 		SceneManager.LoadSceneAsync( "Star_Racer_Main" );
 	}
+
 
 
 	//Deactivate all levels
@@ -46,8 +51,12 @@ public class LevelHandler : MonoBehaviour
 		{
 			level.SetActive( false );
 		}
-		//Enable the currently selected level
-		levelList[ currentLevel ].SetActive( true );
+
+		if( !demoMode )
+			//Enable the currently selected level
+			levelList[ currentLevel ].SetActive( true );
+		else
+			demoList[0].SetActive( true );
 	}
 
 	//Called by the next level buttons On click event 

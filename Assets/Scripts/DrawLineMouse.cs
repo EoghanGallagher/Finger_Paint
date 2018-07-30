@@ -38,6 +38,8 @@ public class DrawLineMouse : MonoBehaviour
 
 	public Transform firstStar;
 
+	private Vector3 newPoint;
+
 
 	void OnEnable()
 	{
@@ -64,11 +66,9 @@ public class DrawLineMouse : MonoBehaviour
 
 	void Update () 
 	{
-		Vector3 newPoint = GetMousePos();
+		newPoint = GetMousePos();
 		var p = Input.mousePosition;
 
-		
-		
 		// Mouse button clicked, so start a new line
 		if ( Input.GetMouseButtonDown( 0 ) ) 
 		{

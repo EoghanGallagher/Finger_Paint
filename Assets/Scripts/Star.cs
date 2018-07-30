@@ -64,7 +64,7 @@ public class Star : MonoBehaviour
 	void OnTriggerEnter2D( Collider2D other )
 	{	
 	
-	   if( other.name.Equals( "DrawnLine" ) )
+	   if( other.name.Equals( "DrawnLine" ) || other.name.Equals( "DemoShip" ) )
 			StartCoroutine( "StarSequence" );
 
 	}
