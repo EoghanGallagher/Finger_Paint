@@ -16,6 +16,10 @@ public class Star : MonoBehaviour
 
 	public bool IsStarLetter { get{ return isStarLetter; } set{ isStarLetter = value; } }
 
+
+	[SerializeField] private bool isFirstStar;
+	
+
 	private LinkHandler linkHandler;
 	private Transform _transform;
 	private Material _material;
@@ -58,6 +62,13 @@ public class Star : MonoBehaviour
 		originalColour = starSpriteRenderer.color;
 		
 		isOkToDrawLine = true; //A check to prevent the player from drawing a line to the wrong selection twice
+
+		//Make sure that lastnode is always set
+		//Especially at the start of a level
+		if( gameObject.name.Equals( "Star 1" ) )
+		{
+			_drawLineHandler.LastNode = transform;
+		}
 	}
 
 	//Detect when line intersects star 
@@ -230,6 +241,7 @@ public class Star : MonoBehaviour
 	//Force them to start drawing form the last success node.
 	void OnMouseDown()
 	{
+		
 		if( _drawLineHandler.LastNode.name.Equals( gameObject.name ) )
 		{
 			_drawLineHandler.CanDraw = true;

@@ -17,7 +17,7 @@ public class LevelHandler : MonoBehaviour
 
 	void Start()
 	{
-		//PlayerPrefs.DeleteAll();
+		PlayerPrefs.DeleteAll();
 	
 		//When the level is loaded
 		//Check what value the current level has 0 - 3 

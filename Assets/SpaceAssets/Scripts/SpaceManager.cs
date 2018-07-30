@@ -14,6 +14,8 @@ public class SpaceManager : MonoBehaviour {
     void Start () {
         direction = scrollDirection;
         instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
     }
 	
 	void Update () {
