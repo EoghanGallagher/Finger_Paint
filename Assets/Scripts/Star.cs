@@ -20,15 +20,15 @@ public class Star : MonoBehaviour
 	[SerializeField] private bool isFirstStar;
 	
 
-	private LinkHandler linkHandler;
+//	private LinkHandler linkHandler;
 	private Transform _transform;
 	private Material _material;
 	private Color originalColour; //Original Colour of Star ( Purple ) used as a buffer
 	private Color errorColour = new Color( 0.9433f, 0.1382f, 0.0934f ); //Red
 	private Color successColour; //Gold 
 	private DrawLineMouse _drawLineHandler;
-	private bool isOkToDrawLine;
-	private bool isOkToColor = false;
+	//private bool isOkToDrawLine;
+	//private bool isOkToColor = false;
 	private GameManager gameManager;
 	private SessionManager sessionManager;
 	private TransitionManager transitionManager;
@@ -45,7 +45,7 @@ public class Star : MonoBehaviour
 		if( star != null )
 			starSpriteRenderer = star.GetComponent<SpriteRenderer>();
 		
-		linkHandler = Object.FindObjectOfType<LinkHandler>();
+		//linkHandler = Object.FindObjectOfType<LinkHandler>();
 		gameManager = Object.FindObjectOfType<GameManager>();
 
 		if( gameManager != null )
@@ -61,7 +61,7 @@ public class Star : MonoBehaviour
 
 		originalColour = starSpriteRenderer.color;
 		
-		isOkToDrawLine = true; //A check to prevent the player from drawing a line to the wrong selection twice
+		//isOkToDrawLine = true; //A check to prevent the player from drawing a line to the wrong selection twice
 
 		//Make sure that lastnode is always set
 		//Especially at the start of a level
@@ -116,7 +116,7 @@ public class Star : MonoBehaviour
 			}
 			
 			//Set the star materials color to gold ( indicating success )
-			_material.color = successColour;
+			//_material.color = successColour;
 
 			if( _drawLineHandler )
 			{
@@ -132,7 +132,7 @@ public class Star : MonoBehaviour
 				//Message broadcast : PlaySound takes an int as a parameter 
 				//Subscribers : SoundManager
 				Messenger<int>.Broadcast( "PlaySound" , 0 );
-				Handheld.Vibrate();
+				//Handheld.Vibrate();
 
 				//Punch animation when correct star is encountered
 				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
@@ -176,6 +176,9 @@ public class Star : MonoBehaviour
 			
 				foreach( GameObject g in previousStarObject.ProximityStars )
 				{
+					
+					Debug.Log( g.name );
+					
 					if( this.name.Equals( g.name ) && g.name != null )
 					{
 						err.ProximityError = true;
@@ -207,7 +210,7 @@ public class Star : MonoBehaviour
 		
 			//Consequences of picking the wrong star . Make star shake 
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
-			Handheld.Vibrate();
+			//Handheld.Vibrate();
 		
 			//Play Error Sound
 			//Message broadcast : PlaySound takes an int as a parameter 
@@ -215,7 +218,7 @@ public class Star : MonoBehaviour
 			Messenger<int>.Broadcast( "PlaySound" , 1 );
 
 			//Tween between stars original colour and red and back
-			isOkToColor = true;
+			//isOkToColor = true;
 			    iTween.ValueTo (gameObject, iTween.Hash (
 					"from", errorColour, 
 					"to", originalColour, 

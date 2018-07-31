@@ -43,8 +43,23 @@ public class PersistenceManager : MonoBehaviour
 	{
     	Debug.Log("Saving " +  GetPath() + "upload/" + fileName );
 
+		string directoryPath = GetPath() + "upload/";
+
+		 //check if directory doesn't exit
+ 		if(!Directory.Exists(directoryPath))
+ 		{    
+     		//if it doesn't, create it
+			Debug.Log("Directory Path does not exist. So im creating it for you."); 
+     		Directory.CreateDirectory(directoryPath);
+ 		}
+		else
+		{
+			Debug.Log( "Directory exists . We are good to go :)" );
+		}
+
 		BinaryFormatter formatter = new BinaryFormatter();
-    	FileStream file = File.Open(  path + fileName, FileMode.OpenOrCreate );
+    	
+		FileStream file = File.Open(  path + fileName, FileMode.OpenOrCreate );
     	formatter.Serialize( file, objectToSave );
     	file.Close();
 	}

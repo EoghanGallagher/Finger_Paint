@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 //A level is a prefab that contains the assets and layout for a Trailmaker test
 public class LevelHandler : MonoBehaviour 
 {
-	[SerializeField] private  GameObject[] levelList; //List of levels
+
+	[SerializeField] private Constellation[] constellationList; //List of levels
 	[SerializeField] private GameObject[] demoList; //List of demo levels
 	[SerializeField] int currentLevel = 0;
 	[SerializeField] bool demoMode;
@@ -17,7 +18,7 @@ public class LevelHandler : MonoBehaviour
 
 	void Start()
 	{
-		PlayerPrefs.DeleteAll();
+		//PlayerPrefs.DeleteAll();
 	
 		//When the level is loaded
 		//Check what value the current level has 0 - 3 
@@ -47,22 +48,30 @@ public class LevelHandler : MonoBehaviour
 	private void SetActiveLevel()
 	{
 		//Disable all level prefabs contained in the list
-		foreach( GameObject level in levelList )
+		foreach( Constellation c in constellationList )
 		{
-			level.SetActive( false );
+			c.constellation.SetActive( false );
 		}
 
-		if( !demoMode )
-			//Enable the currently selected level
-			levelList[ currentLevel ].SetActive( true );
+		if( !GameManager.Instance.IsDemoMode )
+		{	//Enable the currently selected level
+			constellationList[ currentLevel ].constellation.SetActive( true );
+			Debug.Log( "Brodcasting ScoreLimit" );
+			
+			//Set the score limit for this level.
+			//Broadcast is revieved by Gamemanager
+			Messenger<int>.Broadcast( "ScoreLimit", constellationList[ currentLevel ].starCount );
+		}
 		else
+		{
 			demoList[0].SetActive( true );
+		}
 	}
 
 	//Called by the next level buttons On click event 
 	public void SetNextLevel(  )
 	{
-		if( currentLevel < levelList.Length -1  )
+		if( currentLevel < constellationList.Length -1  )
 			currentLevel ++;
 		else
 			currentLevel = 0;

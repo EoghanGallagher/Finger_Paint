@@ -79,8 +79,8 @@ public class DrawLineMouse : MonoBehaviour
 				CreateLine();
 			}	
 			
-			if( !line.collider )
-				line.collider = true;
+			//if( !line.collider )
+			line.collider = true;
 			
 			//RedrawLine();
 			
@@ -177,12 +177,7 @@ public class DrawLineMouse : MonoBehaviour
 
 		for( int i = 0; i < lastSuccessPoint-1; i++ )
 		{
-			
-			if( line.points2[i] != null )
-			{	
-				newLine.points2.Add( line.points2[i] );
-			}
-				
+			newLine.points2.Add( line.points2[i] );	
 		}
 
 		//line.points2.RemoveRange( 0, line.points2.Count );

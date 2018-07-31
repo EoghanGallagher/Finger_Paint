@@ -7,11 +7,11 @@ public class LinkHandler : MonoBehaviour
 {
 
 	public GameObject linkPrefab;
-	private Transform _transform;
+	//private Transform _transform;
 
 	void Start()
 	{
-		_transform = transform;
+		//_transform = transform;
 		VectorLine.canvas.sortingOrder = -1;
 
 		VectorLine.SetCanvasCamera (Camera.main);

@@ -7,7 +7,7 @@ using Newtonsoft.Json; //JSON NET Plugin
 public class SessionManager : MonoBehaviour 
 {
 
-	[SerializeField] private string deviceName;
+	//[SerializeField] private string deviceName;
 	[SerializeField] private string deviceModel;
 	[SerializeField] private string deviceType;
 	[SerializeField] private string deviceUniqueIdentifier;
@@ -29,7 +29,7 @@ public class SessionManager : MonoBehaviour
 	
 	void Start()
 	{
-		deviceName = SystemInfo.deviceName;
+		//deviceName = SystemInfo.deviceName;
 		deviceModel = SystemInfo.deviceModel;
 		deviceType = SystemInfo.deviceType.ToString();
 		deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;

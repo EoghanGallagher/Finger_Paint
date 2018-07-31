@@ -19,7 +19,12 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject canvas;
 	[SerializeField] private bool isLevelOver;
 	[SerializeField] private bool istutorial;
-	public static GameManager instance = null;
+	public static GameManager Instance = null;
+
+
+	[SerializeField] private bool isDemoMode;
+
+	public bool IsDemoMode { get { return isDemoMode; } }
 
 
 	  // has the user pressed start?
@@ -45,13 +50,23 @@ public class GameManager : MonoBehaviour
 	public UnityEvent endLevelEvent;
 
 
+	void OnEnable()
+	{
+		Messenger<int>.AddListener( "ScoreLimit" , SetScoreLimit );
+	}
+
+	void OnDisable()
+	{
+		Messenger<int>.RemoveListener( "ScoreLimit" , SetScoreLimit );
+	}
+
 	void Awake()
 	{
-		if( instance == null )
+		if( Instance == null )
 		{
-			instance = this;
+			Instance = this;
 		}
-		else if( instance != this )
+		else if( Instance != this )
 		{
 			Destroy( gameObject );
 		}
@@ -215,6 +230,13 @@ public class GameManager : MonoBehaviour
 			Pause();
 		else
 			Resume();
+	}
+
+
+	public void SetScoreLimit( int limit )
+	{
+		Debug.Log( "Score Limit Called ...... " + limit );
+		scoreLimit = limit;
 	}
 	
 
