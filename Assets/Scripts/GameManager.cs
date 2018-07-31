@@ -235,7 +235,6 @@ public class GameManager : MonoBehaviour
 
 	public void SetScoreLimit( int limit )
 	{
-		Debug.Log( "Score Limit Called ...... " + limit );
 		scoreLimit = limit;
 	}
 	

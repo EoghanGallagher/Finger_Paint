@@ -12,6 +12,8 @@ public class Timer : MonoBehaviour
 
 	[SerializeField] private string timeTaken;
 
+	private float t;
+
 	private SessionManager sessionManager;
 	
 	// Use this for initialization
@@ -30,14 +32,14 @@ public class Timer : MonoBehaviour
 		
 		if( isTimerRunning )
 		{
-			float t = Time.time - startTime;
+			t = Time.time - startTime;
 
-			string minutes = ( (int) t / 60 ).ToString(  ) ;
-			string seconds = ( t % 60 ).ToString( "F2" );
+			//string minutes = ( (int) t / 60 ).ToString(  ) ;
+			//string seconds = ( t % 60 ).ToString( "F2" );
 
-			timerText.text = minutes + ":" + seconds;
+			timerText.text = ( (int) t / 60 ).ToString(  ) + ":" + ( t % 60 ).ToString( "F2" );
 		
-			timeTaken = minutes + ":" + seconds;
+			timeTaken = timerText.text;
 
 		}
 

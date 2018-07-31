@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Vectrosity;
 using System.Collections.Generic;
+using UnityEngine.Profiling;
 
 public class DrawLineMouse : MonoBehaviour 
 {
@@ -53,6 +54,10 @@ public class DrawLineMouse : MonoBehaviour
 
 	void Start()
 	{
+		//Disable Multi Touch 
+		Input.multiTouchEnabled = false;
+
+		
 		CreateLine();
 
 		GameObject star  = GameObject.Find( "Star 1" );
@@ -64,10 +69,18 @@ public class DrawLineMouse : MonoBehaviour
 	
 	}
 
+
+	private Vector2 p;
+
 	void Update () 
 	{
+		
+		Profiler.BeginSample( "Draw Line Mouse UPDATE FUNCTION....Sample Code" );
+
 		newPoint = GetMousePos();
-		var p = Input.mousePosition;
+		p = Input.mousePosition;
+
+			
 
 		// Mouse button clicked, so start a new line
 		if ( Input.GetMouseButtonDown( 0 ) ) 
@@ -79,8 +92,8 @@ public class DrawLineMouse : MonoBehaviour
 				CreateLine();
 			}	
 			
-			//if( !line.collider )
-			line.collider = true;
+			if( !line.collider )
+				line.collider = true;
 			
 			//RedrawLine();
 			
@@ -140,7 +153,7 @@ public class DrawLineMouse : MonoBehaviour
 			isMouseUp = true;
 		}
 
-		
+		Profiler.EndSample();
 	}
 
 	Vector3 GetMousePos () 
@@ -230,8 +243,6 @@ public class DrawLineMouse : MonoBehaviour
 		
 		//Set the default sorting order for the line. In this case make it appear behind objects.
 		VectorLine.canvas.sortingOrder = 20;
-		
-
 
 		if ( useEndCap ) 
 		{

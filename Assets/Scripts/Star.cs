@@ -176,9 +176,6 @@ public class Star : MonoBehaviour
 			
 				foreach( GameObject g in previousStarObject.ProximityStars )
 				{
-					
-					Debug.Log( g.name );
-					
 					if( this.name.Equals( g.name ) && g.name != null )
 					{
 						err.ProximityError = true;
