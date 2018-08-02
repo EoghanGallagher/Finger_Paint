@@ -29,7 +29,7 @@ public class Star : MonoBehaviour
 	private DrawLineMouse _drawLineHandler;
 	//private bool isOkToDrawLine;
 	//private bool isOkToColor = false;
-	private GameManager gameManager;
+	private StarRacerGameManager gameManager;
 	private SessionManager sessionManager;
 	private TransitionManager transitionManager;
 	private SpriteRenderer starSpriteRenderer;
@@ -46,7 +46,7 @@ public class Star : MonoBehaviour
 			starSpriteRenderer = star.GetComponent<SpriteRenderer>();
 		
 		//linkHandler = Object.FindObjectOfType<LinkHandler>();
-		gameManager = Object.FindObjectOfType<GameManager>();
+		gameManager = Object.FindObjectOfType<StarRacerGameManager>();
 
 		if( gameManager != null )
 		{
@@ -76,7 +76,7 @@ public class Star : MonoBehaviour
 	{	
 	
 	   if( other.name.Equals( "DrawnLine" ) || other.name.Equals( "DemoShip" ) )
-			StartCoroutine( "StarSequence" );
+			StartCoroutine( StarSequence() );
 
 	}
 

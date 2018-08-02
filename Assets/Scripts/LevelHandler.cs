@@ -38,7 +38,7 @@ public class LevelHandler : MonoBehaviour
 	//Load the scene level
 	public void LoadLevel()
 	{
-		SceneManager.LoadSceneAsync( "Star_Racer_Main" );
+		SceneManager.LoadSceneAsync( ObjectNames.starRacerMainLevel );
 	}
 
 
@@ -53,7 +53,7 @@ public class LevelHandler : MonoBehaviour
 			c.constellation.SetActive( false );
 		}
 
-		if( !GameManager.Instance.IsDemoMode )
+		if( !StarRacerGameManager.Instance.IsDemoMode )
 		{	//Enable the currently selected level
 			constellationList[ currentLevel ].constellation.SetActive( true );
 			Debug.Log( "Brodcasting ScoreLimit" );
