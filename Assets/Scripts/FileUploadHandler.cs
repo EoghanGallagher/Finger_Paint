@@ -14,7 +14,7 @@ public class FileUploadHandler : MonoBehaviour
 
 	private string jsonString;
 
-	private static readonly string PutSessionURL = "https://radiant-cove-60298.herokuapp.com/api/session";
+	private static readonly string PutSessionURL = "http://localhost:5000/api/session";
 
 
 
@@ -25,8 +25,6 @@ public class FileUploadHandler : MonoBehaviour
 
 		destinationPath = GetPath() + "sent/";
 		Debug.Log( path );
-
-		DirectoryCheck( path );
 			
 	}
 
@@ -120,20 +118,7 @@ public class FileUploadHandler : MonoBehaviour
 		#endif
 	}
 
-	private void DirectoryCheck( string path )
-	{
-		 //check if directory doesn't exit
- 		if(!Directory.Exists(path))
- 		{    
-     		//if it doesn't, create it
-			Debug.Log("Directory Path does not exist. So im creating it for you."); 
-     		Directory.CreateDirectory(path);
- 		}
-		else
-		{
-			Debug.Log( "Directory exists . We are good to go :)" );
-		}
 
-	}
+
 
 }

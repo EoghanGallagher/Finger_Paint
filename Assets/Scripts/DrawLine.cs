@@ -11,8 +11,7 @@ public class DrawLine : MonoBehaviour
 	private VectorLine line;
 
 	// Use this for initialization
-	void Start () 
-	{
+	void Start () {
 		SetLine();
 	}
 
