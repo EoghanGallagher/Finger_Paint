@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.PostProcessing;
+//using UnityEngine.PostProcessing;
 
 public class GameManager : MonoBehaviour 
 {
 
-	[SerializeField] private PostProcessingBehaviour blur;
-	[SerializeField] private PostProcessingBehaviour normal;
+	//[SerializeField] private PostProcessingBehaviour blur;
+	//[SerializeField] private PostProcessingBehaviour normal;
 	[SerializeField] private int score;
 	// Use this for initialization
 

@@ -14,7 +14,7 @@ public class FileUploadHandler : MonoBehaviour
 
 	private string jsonString;
 
-	private static readonly string PutSessionURL = "https://radiant-cove-60298.herokuapp.com/api/Session";
+	private static readonly string PutSessionURL = "https://radiant-cove-60298.herokuapp.com/api/session";
 
 
 
