@@ -7,7 +7,7 @@ public class DrawLineMouse : MonoBehaviour
 {
 	[SerializeField] private Texture2D lineTex;
 	[SerializeField] private int maxPoints = 5000;
-	[SerializeField] private float lineWidth = 4.0f;
+	[SerializeField] private float lineWidth = 20.0f;
 	[SerializeField] private int minPixelMove = 5;	// Must move at least this many pixels per sample for a new segment to be recorded
 	[SerializeField] private bool useEndCap = false;
 	[SerializeField] private Texture2D capLineTex;
