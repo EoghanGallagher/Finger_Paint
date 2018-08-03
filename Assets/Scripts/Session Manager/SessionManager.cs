@@ -9,6 +9,8 @@ public class SessionManager : MonoBehaviour
 
 	//[SerializeField] private string deviceName;
 	[SerializeField] private string deviceModel;
+
+	[SerializeField] private string deviceName;
 	[SerializeField] private string deviceType;
 	[SerializeField] private string deviceUniqueIdentifier;
 
@@ -33,6 +35,8 @@ public class SessionManager : MonoBehaviour
 		deviceModel = SystemInfo.deviceModel;
 		deviceType = SystemInfo.deviceType.ToString();
 		deviceUniqueIdentifier = SystemInfo.deviceUniqueIdentifier;
+		deviceName = SystemInfo.deviceName;
+
 
 		
 	}
@@ -54,7 +58,7 @@ public class SessionManager : MonoBehaviour
 
 		session.DeviceType = deviceType;
 		session.DeviceModel = deviceModel;
-		session.DeviceModel = deviceModel;
+		session.DeviceName = deviceName;
 		session.DeviceUniqueIdentifier = deviceUniqueIdentifier;
 		session.GameID = "0001";
 		session.PlayerID = "player00001";
@@ -75,6 +79,19 @@ public class SessionManager : MonoBehaviour
 			session.TransitionCount ++;
 			t.TransitionNo = session.TransitionCount;
 			t.TransistionName = t.Source + "-" + t.Destination;
+
+			//If there are not transition errors then set a default value
+			//Ensures the array isnt saved as empty or null
+			if(t.transitionErrors.Count == 0)
+			{
+				Error err = new Error();
+				err.NoError = true;
+				err.Source = "N/A";
+				err.Destination = "N/A";
+				err.ErrorTimeStamp = "N/A";
+				t.transitionErrors.Add( err );
+			}
+
 			session.transitions.Add( t );
 			//Debug.Log( session.transistions.Count );
 
@@ -100,6 +117,8 @@ public class SessionManager : MonoBehaviour
 	{
 		//Get the duration of the session
 		session.SessionDuration = sessionDuration;
+
+		Debug.Log( session );
 		
 		//Save the session
 		PersistenceManager.Instance.Save( session );

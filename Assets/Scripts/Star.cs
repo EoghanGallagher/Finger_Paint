@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameSessions;
+using TMPro;
 
 public class Star : MonoBehaviour 
 {
@@ -34,13 +35,22 @@ public class Star : MonoBehaviour
 	private TransitionManager transitionManager;
 	private SpriteRenderer starSpriteRenderer;
 	private Transform star;
-	
+
+	private TextMeshPro starText;
+
 	void Start()
 	{
 		_transform = transform;
-		
+
 		//Find Sibling Star . The star in question has a sprite renderer that needs to be accessed
+		//Bad Eoghan ..you shouldnt use Find ...REfactor later
 		star = _transform.parent.Find( "Star" );
+
+		starText = _transform.parent.GetComponent<TextMeshPro>(); //Grab the text value from parent
+
+
+		ParallaxMovement ParallaxMovement = star.GetComponent<ParallaxMovement>();
+		ParallaxMovement.enabled = false;
 
 		if( star != null )
 			starSpriteRenderer = star.GetComponent<SpriteRenderer>();
@@ -134,6 +144,10 @@ public class Star : MonoBehaviour
 				Messenger<int>.Broadcast( "PlaySound" , 0 );
 				//Handheld.Vibrate();
 
+				//Update the progress star with the current star
+				//Progress star will display the current
+				Messenger<string>.Broadcast( "UpdateProgress" , starText.text );
+
 				//Punch animation when correct star is encountered
 				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
 
@@ -145,6 +159,7 @@ public class Star : MonoBehaviour
 				{
 					_drawLineHandler.CanDraw = false;
 				}
+	
 
 			}
 

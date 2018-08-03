@@ -12,6 +12,8 @@ public class Error
 
 	public bool LetterToNumberError { get; set; }
 
+	public bool NoError { get; set; }
+
 	public string Source{ get; set; } //Transition source
 	public string Destination{ get; set; } //Transition Destination
 	public string ErrorTimeStamp{ get; set; } //Time of error

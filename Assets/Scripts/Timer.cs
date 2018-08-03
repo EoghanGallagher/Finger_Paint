@@ -34,10 +34,32 @@ public class Timer : MonoBehaviour
 		{
 			t = Time.time - startTime;
 
-			//string minutes = ( (int) t / 60 ).ToString(  ) ;
-			//string seconds = ( t % 60 ).ToString( "F2" );
+			string minutes = "";
+			string seconds = "";
+			
+			if( ((int)t / 60 ) < 10 )
+			{
+				minutes = "0" + ( (int) t / 60 ).ToString(  ) ;
+			}
+			else
+			{
+				minutes = ( (int) t / 60 ).ToString( "F2" ) ;
+			}
 
-			timerText.text = ( (int) t / 60 ).ToString(  ) + ":" + ( t % 60 ).ToString( "F2" );
+
+			if( ( t % 60 ) < 10 )
+			{
+				seconds = "0" + ( (int) t % 60 ).ToString(  );
+			}
+			else
+			{
+				seconds = ( (int)t % 60 ).ToString(  );
+			}
+
+
+			timerText.text = minutes + ":" + seconds;
+
+			
 		
 			timeTaken = timerText.text;
 
