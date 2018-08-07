@@ -22,6 +22,18 @@ public class TransitionManager : MonoBehaviour
 
 	public int TransitionErrorCount { set{ transition.ErrorCount = value; } get{ return transition.ErrorCount; } }
 
+
+	//Count number of proximity errors
+	public int ProximityErrorCount { set{ transition.proximityErrorCount = value; } get{ return transition.proximityErrorCount; } }
+
+	//Count number of preservative errors
+	public int PreservativeErrorCount { set{ transition.preservativeErrorCount = value; } get{ return transition.preservativeErrorCount; } }
+
+	public int NumToLetterErrorCount { set{ transition.numToLetterCount = value; } get{ return transition.numToLetterCount; } }
+
+	public int LetterToNumErrorCount { set{ transition.letterToNumCount = value; } get{ return transition.letterToNumCount; } }
+
+
 	private void Start()
 	{
 		//startTime = Time.time;
@@ -82,7 +94,7 @@ public class TransitionManager : MonoBehaviour
 
 	public void AddError(  Error err  )
 	{
-		transition.transitionErrors.Add( err );
+		//transition.transitionErrors.Add( err );
 	}
 
 

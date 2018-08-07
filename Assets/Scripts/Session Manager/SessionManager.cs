@@ -82,15 +82,15 @@ public class SessionManager : MonoBehaviour
 
 			//If there are not transition errors then set a default value
 			//Ensures the array isnt saved as empty or null
-			if(t.transitionErrors.Count == 0)
-			{
-				Error err = new Error();
-				err.NoError = true;
-				err.Source = "N/A";
-				err.Destination = "N/A";
-				err.ErrorTimeStamp = "N/A";
-				t.transitionErrors.Add( err );
-			}
+			// if(t.transitionErrors.Count == 0)
+			// {
+			// 	Error err = new Error();
+			// 	err.NoError = true;
+			// 	err.Source = "N/A";
+			// 	err.Destination = "N/A";
+			// 	err.ErrorTimeStamp = "N/A";
+			// 	t.transitionErrors.Add( err );
+			// }
 
 			session.transitions.Add( t );
 			//Debug.Log( session.transistions.Count );

@@ -16,7 +16,13 @@ public class Transition
 
 	public bool TransitionComplete { get; set; }
 
+	public int proximityErrorCount;
+	public int preservativeErrorCount;
+	public int numToLetterCount;
+	public int letterToNumCount;
+
 	public int ErrorCount { get; set; }
 
-	public List <Error> transitionErrors = new List<Error>(); 
+
+	//public List <Error> transitionErrors = new List<Error>(); 
 }

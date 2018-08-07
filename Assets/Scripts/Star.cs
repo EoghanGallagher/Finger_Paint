@@ -193,7 +193,9 @@ public class Star : MonoBehaviour
 				{
 					if( this.name.Equals( g.name ) && g.name != null )
 					{
-						err.ProximityError = true;
+						//err.ProximityError = true;
+						transitionManager.ProximityErrorCount ++;
+
 					}
 				}
 
@@ -203,22 +205,26 @@ public class Star : MonoBehaviour
 			//Check the type of error that occured
 			if( previousStarObject.IsStarLetter && this.IsStarLetter ) //letter to letter error
 			{
-				err.PreservativeError = true;
+				//err.PreservativeError = true;
+				transitionManager.PreservativeErrorCount ++;
 			}
 			else if( !previousStarObject.IsStarLetter && !this.IsStarLetter ) //number to number error
 			{
-				err.PreservativeError = true;
+				//err.PreservativeError = true;
+				transitionManager.PreservativeErrorCount ++;
 			}
 			else if( !previousStarObject.IsStarLetter && this.IsStarLetter ) //number to letter error
 			{
-				err.NumberToLetterError = true;
+				//err.NumberToLetterError = true;
+				transitionManager.NumToLetterErrorCount ++;
 			}
 			else if( previousStarObject.IsStarLetter && !this.IsStarLetter ) //letter to number error
 			{
-				err.LetterToNumberError = true;
+				transitionManager.LetterToNumErrorCount ++;
+				//err.LetterToNumberError = true;
 			}
 
-			transitionManager.AddError( err ); //Add the error to the error list for this transition
+			//transitionManager.AddError( err ); //Add the error to the error list for this transition
 		
 			//Consequences of picking the wrong star . Make star shake 
 			iTween.ShakePosition( _transform.parent.gameObject, new Vector2( 0.2f, 0.2f ), 0.75f );
