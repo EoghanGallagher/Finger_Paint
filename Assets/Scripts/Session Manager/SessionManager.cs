@@ -20,6 +20,17 @@ public class SessionManager : MonoBehaviour
 	[SerializeField] private string sessionDuration;
 	public string SessionDuration { get{ return sessionDuration; } set{ sessionDuration = value; }  }
 
+
+	[SerializeField] private string timeToStartSession;
+	public string TimeToStartSession { get{ return timeToStartSession; } set{ 
+		timeToStartSession = value; 
+		if( timeToStartSession.Length > 0 )
+		{
+			session.TimeToStartSession = timeToStartSession;
+		}
+		
+	} }
+
 	[SerializeField] private string transitionDuration;
 	public string TransitionDuration { get{ return transitionDuration; } set{ transitionDuration = value; }  }
 
@@ -66,12 +77,15 @@ public class SessionManager : MonoBehaviour
 		session.SessionDuration = sessionDuration;
 		session.SessionName = "trail_maker_session_" +  sessionUid;
 		session.SessionNumber = 22;
+		
+		
 
 		PersistenceManager.Instance.FileName = session.SessionName + ".dat";
 		session.FileName = session.SessionName + ".dat";
 	
 	}
 
+	
 	public void AddTransition( Transition t )
 	{
 		if( t != null )

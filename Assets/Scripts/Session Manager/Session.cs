@@ -22,6 +22,8 @@ namespace GameSessions
 		public string TimeStamp { get; set; } //Replace string with date time.
 		public bool SessionCompleted { get; set; } //Did the player complete the session
 
+		public string TimeToStartSession { get; set; } //Time taken for player to select first star after clicking start
+
 		public int TransitionCount { get; set; }
 
 		public  List<Transition> transitions = new List<Transition>(); //Number of transitions that occured during a session

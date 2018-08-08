@@ -4,19 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class Timer : MonoBehaviour 
 {
-	[SerializeField] private TextMeshProUGUI timerText;
+	
 	[SerializeField] private bool isTimerRunning = false;
 	[SerializeField] private float startTime;
 
 	[SerializeField] private string timeTaken;
+	[SerializeField] private string timeTakenSeconds;
+
+	[SerializeField] private TextMeshProUGUI timerText;
 
 	public string TimeTaken { get { return timeTaken; } }
+	public string TimeTakenSeconds{ get { return timeTakenSeconds; } }
+
+
+	private float timeTakenfloat;
+	public float TimeTakenfloat{ get { return timeTakenfloat; } }
 
 	private float t;
 
 	private SessionManager sessionManager;
+
 	
 	// Use this for initialization
 	void Start () 
@@ -27,7 +37,8 @@ public class Timer : MonoBehaviour
 		if( gameManager != null )
 			sessionManager = gameManager.GetComponent<SessionManager>();
 
-			
+		timerText = GetComponent<TextMeshProUGUI>();	
+		
 	}
 	
 	// Update is called once per frame
@@ -36,7 +47,7 @@ public class Timer : MonoBehaviour
 		
 		if( isTimerRunning )
 		{
-			t = Time.time - startTime;
+			timeTakenfloat = t = Time.time - startTime;
 
 			string minutes = "";
 			string seconds = "";
@@ -54,22 +65,33 @@ public class Timer : MonoBehaviour
 			if( ( t % 60 ) < 10 )
 			{
 				seconds = "0" + ( (int) t % 60 ).ToString(  );
+				
 			}
 			else
 			{
 				seconds = ( (int)t % 60 ).ToString(  );
 			}
 
-			//timerText.text = minutes + ":" + seconds;
+			timerText.text = minutes + ":" + seconds;
 
 			
 			timeTaken = minutes + ":" + seconds;
+
+
+			timeTakenSeconds = minutes + ":" + ( t % 60 ).ToString( "F2" );
+
+			
+
+			
+
+			
 
 		}
 
 		
 	}
 
+	
 	//Triggered when game starts
 	public void StartTimer() 
 	{

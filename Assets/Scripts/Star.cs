@@ -38,13 +38,19 @@ public class Star : MonoBehaviour
 
 	private TextMeshPro starText;
 
+	[SerializeField] private Timer _timer;
+
 	void Start()
 	{
 		_transform = transform;
 
+		
+
 		//Find Sibling Star . The star in question has a sprite renderer that needs to be accessed
 		//Bad Eoghan ..you shouldnt use Find ...REfactor later
 		star = _transform.parent.Find( "Star" );
+
+		_timer =  GameObject.Find("Timer").GetComponent<Timer>();
 
 		starText = _transform.parent.GetComponent<TextMeshPro>(); //Grab the text value from parent
 
@@ -82,12 +88,30 @@ public class Star : MonoBehaviour
 	}
 
 	//Detect when line intersects star 
+	float tmpTime;
 	void OnTriggerEnter2D( Collider2D other )
 	{	
 	
+		
+
 	   if( other.name.Equals( "DrawnLine" ) || other.name.Equals( "DemoShip" ) )
+	   {
+		   	Debug.Log( "ENTERED TRIGGER" );
+
+			if( _timer && starValue == 0 )
+			{
+				sessionManager.TimeToStartSession = _timer.TimeTakenSeconds;
+			}
+
 			StartCoroutine( "StarSequence" );
 
+	   }
+
+	}
+
+	void OnTriggerExit2D( Collider2D other )
+	{
+			
 	}
 
 	IEnumerator StarSequence()
