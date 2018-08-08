@@ -178,11 +178,11 @@ public class Star : MonoBehaviour
 
 			transitionManager.TransitionErrorCount ++; //Total number or errors for this transition
 
-			Error err = new Error(); //Create new instance of error class
+			// Error err = new Error(); //Create new instance of error class
 
-			err.Source = previousStarObject.name;
-			err.Destination = this.name;
-			err.ErrorTimeStamp = System.DateTime.Now.ToString();
+			// err.Source = previousStarObject.name;
+			// err.Destination = this.name;
+			// err.ErrorTimeStamp = System.DateTime.Now.ToString();
 
 			//Check previous stars list of proximity stars
 			//if a player accidently hits a star contained in this list , then that constitutes a proximity error

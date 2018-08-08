@@ -12,6 +12,8 @@ public class Timer : MonoBehaviour
 
 	[SerializeField] private string timeTaken;
 
+	public string TimeTaken { get { return timeTaken; } }
+
 	private float t;
 
 	private SessionManager sessionManager;
@@ -24,6 +26,8 @@ public class Timer : MonoBehaviour
 
 		if( gameManager != null )
 			sessionManager = gameManager.GetComponent<SessionManager>();
+
+			
 	}
 	
 	// Update is called once per frame
@@ -56,12 +60,10 @@ public class Timer : MonoBehaviour
 				seconds = ( (int)t % 60 ).ToString(  );
 			}
 
-
-			timerText.text = minutes + ":" + seconds;
+			//timerText.text = minutes + ":" + seconds;
 
 			
-		
-			timeTaken = timerText.text;
+			timeTaken = minutes + ":" + seconds;
 
 		}
 
