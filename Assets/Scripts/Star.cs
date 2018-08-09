@@ -152,7 +152,15 @@ public class Star : MonoBehaviour
 			//Set the star materials color to gold ( indicating success )
 			//_material.color = successColour;
 
-			if( _drawLineHandler )
+			if( GameManager.Instance.IsDemoMode )
+			{
+				Messenger<int>.Broadcast( "PlaySound" , 0 );
+				iTween.PunchScale( starSpriteRenderer.gameObject, iTween.Hash( "x",-2, "y",-2, "time",0.75f));
+				starSpriteRenderer.color = new Color( 0.9716f, 0.8722f, 0.1512f, 1 );
+				originalColour = starSpriteRenderer.color;
+				gameManager.UpdateScore();
+			}
+			else if( _drawLineHandler )
 			{
 				StarManager.lastSuccessPointCount = _drawLineHandler.PointCount;
 				_drawLineHandler.DrawLine( _drawLineHandler.PointCount );
