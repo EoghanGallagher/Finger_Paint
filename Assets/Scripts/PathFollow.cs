@@ -12,6 +12,19 @@ public class PathFollow : MonoBehaviour
 	[SerializeField] private float percentPerSecond = 0.02f; // 2% per second
 	[SerializeField] private float currentPathPercent = 0.0f; //Percnetage of the path completed. 0 - 1
 
+	DrawLineDemo drawLineDemo;
+
+	void Start()
+	{
+		drawLineDemo = GetComponent<DrawLineDemo>();
+
+		if( drawLineDemo )
+		{
+			StartCoroutine( Delay() );
+		}
+		
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -27,5 +40,12 @@ public class PathFollow : MonoBehaviour
 	void OnDrawGizmos()
 	{
 		iTween.DrawPath( waypointArray );
+	}
+
+	IEnumerator Delay()
+	{
+		yield return new WaitForSeconds( 0.62f );
+		
+		drawLineDemo.enabled = true;	
 	}
 }

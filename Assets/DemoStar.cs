@@ -11,6 +11,7 @@ public class DemoStar : MonoBehaviour
 	void Start()
 	{
 		originalColour = starSpriteRenderer.color;
+		
 	}
 
 	void OnTriggerEnter2D( Collider2D other )
