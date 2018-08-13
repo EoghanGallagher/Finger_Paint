@@ -60,17 +60,10 @@ public class Timer : MonoBehaviour
 		if( isTimerRunning )
 		{
 			
-			minutes.Length = 0;
-			minutes.Capacity = 0;
-			
-			seconds.Length = 0;
-			seconds.Capacity = 0;
-
-			timeTaken.Length = 0;
-			timeTaken.Capacity = 0;
-
-			timeTakenSeconds.Length = 0;
-			timeTakenSeconds.Capacity = 0;
+			minutes.Clear();
+			seconds.Clear();
+			timeTaken.Clear();
+			timeTakenSeconds.Clear();
 			
 			timeTakenfloat = t = Time.time - startTime;
 
