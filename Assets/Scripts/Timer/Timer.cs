@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,13 +12,13 @@ public class Timer : MonoBehaviour
 	[SerializeField] private bool isTimerRunning = false;
 	[SerializeField] private float startTime;
 
-	[SerializeField] private string timeTaken;
-	[SerializeField] private string timeTakenSeconds;
+	[SerializeField] private StringBuilder timeTaken;
+	[SerializeField] private StringBuilder timeTakenSeconds;
 
 	[SerializeField] private TextMeshProUGUI timerText;
 
-	public string TimeTaken { get { return timeTaken; } }
-	public string TimeTakenSeconds{ get { return timeTakenSeconds; } }
+	public StringBuilder TimeTaken { get { return timeTaken; } }
+	public StringBuilder TimeTakenSeconds{ get { return timeTakenSeconds; } }
 
 
 	private float timeTakenfloat;
@@ -26,6 +27,10 @@ public class Timer : MonoBehaviour
 	private float t;
 
 	private SessionManager sessionManager;
+
+
+	private StringBuilder minutes;
+	private StringBuilder seconds;
 
 	
 	// Use this for initialization
@@ -37,9 +42,16 @@ public class Timer : MonoBehaviour
 		if( gameManager != null )
 			sessionManager = gameManager.GetComponent<SessionManager>();
 
-		timerText = GetComponent<TextMeshProUGUI>();	
+		timerText = GetComponent<TextMeshProUGUI>();
+
+		minutes = new StringBuilder("");	
+		seconds = new StringBuilder("");
+		timeTaken = new StringBuilder("");
+		timeTakenSeconds = new StringBuilder("");
 		
 	}
+
+
 	
 	// Update is called once per frame
 	void Update () 
@@ -47,49 +59,59 @@ public class Timer : MonoBehaviour
 		
 		if( isTimerRunning )
 		{
+			
+			minutes.Length = 0;
+			minutes.Capacity = 0;
+			
+			seconds.Length = 0;
+			seconds.Capacity = 0;
+
+			timeTaken.Length = 0;
+			timeTaken.Capacity = 0;
+
+			timeTakenSeconds.Length = 0;
+			timeTakenSeconds.Capacity = 0;
+			
 			timeTakenfloat = t = Time.time - startTime;
 
-			string minutes = "";
-			string seconds = "";
+			//string minutes = "";
+			//string seconds = "";
 			
 			if( ((int)t / 60 ) < 10 )
 			{
-				minutes = "0" + ( (int) t / 60 ).ToString(  ) ;
+				minutes.Append( "0" + ( (int) t / 60 ).ToString(  ) ) ;
 			}
 			else
 			{
-				minutes = ( (int) t / 60 ).ToString( "F2" ) ;
+				minutes.Append( ( (int) t / 60 ).ToString( "F2" ) );
 			}
 
 
 			if( ( t % 60 ) < 10 )
 			{
-				seconds = "0" + ( (int) t % 60 ).ToString(  );
+				seconds.Append( "0" + ( (int) t % 60 ).ToString(  ) );
 				
 			}
 			else
 			{
-				seconds = ( (int)t % 60 ).ToString(  );
+				seconds.Append( ((int)t % 60).ToString(  ) );
 			}
 
 			timerText.text = minutes + ":" + seconds;
 
 			
-			timeTaken = minutes + ":" + seconds;
+			timeTaken.Append( minutes + ":" + seconds );
 
 
-			timeTakenSeconds = minutes + ":" + ( t % 60 ).ToString( "F2" );
+			timeTakenSeconds.Append( minutes + ":" + ( t % 60 ).ToString( "F2" ));
 
-			
-
-			
-
-			
-
+	
 		}
 
 		
 	}
+
+	
 
 	
 	//Triggered when game starts
@@ -102,7 +124,7 @@ public class Timer : MonoBehaviour
 	public void StopTimer()
 	{
 		Debug.Log( "Time Taken : " +  timeTaken );
-		sessionManager.SessionDuration = timeTaken;
+		sessionManager.SessionDuration = timeTaken.ToString();
 		Debug.Log( "Time Taken  Session: " +  sessionManager.SessionDuration );
 		isTimerRunning  = false;
 		

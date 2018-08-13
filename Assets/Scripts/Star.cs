@@ -100,7 +100,7 @@ public class Star : MonoBehaviour
 
 			if( _timer && starValue == 0 )
 			{
-				sessionManager.TimeToStartSession = _timer.TimeTakenSeconds;
+				sessionManager.TimeToStartSession = _timer.TimeTakenSeconds.ToString();
 			}
 
 			StartCoroutine( "StarSequence" );
