@@ -11,7 +11,8 @@ public class Splash : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		StartCoroutine( "CountDown" );
+		
+		StartCoroutine( CountDown() );
 	}
 	
 	

@@ -35,7 +35,7 @@ public class DrawLineDemo : MonoBehaviour
 			line = new VectorLine("Line2D", new List<Vector2>(), lineTex, lineWidth, LineType.Continuous, Joins.Weld);		
 		}
 
-		line.collider = true;
+		//line.collider = true;
 		line.Draw();
 
 		StartCoroutine( "AddPointsToLine" );

@@ -15,12 +15,14 @@ public class SoundManager : MonoBehaviour
 	void OnEnable()
 	{
 		Messenger<int>.AddListener("PlaySound", PlaySound );
+		Messenger<int>.AddListener("RandomizePitch", RandomizePitch );
 		Messenger<int>.AddListener("StopSound", PlaySound );
 	}
 	
 	void OnDisable()
 	{
 		Messenger<int>.RemoveListener("PlaySound", PlaySound );
+		Messenger<int>.RemoveListener("RandomizePitch", RandomizePitch );
 		Messenger<int>.RemoveListener("StopSound", PlaySound );
 	}
 	void Awake () 
@@ -51,11 +53,18 @@ public class SoundManager : MonoBehaviour
 	}
 	
 
+	public Sound FindSound( int id )
+	{
+		Sound s = Array.Find( sounds , sound => sound.id == id );
+		
+		return s;
+	}
+
 	public void PlaySound( int id )
 	{
 
-		Debug.Log( "Playing Sound ID: " + id );
-		Sound s = Array.Find( sounds , sound => sound.id == id );
+	
+		Sound s = FindSound( id );
 
 		if( s == null )
 		{
@@ -65,6 +74,21 @@ public class SoundManager : MonoBehaviour
 		{
 			s.source.Play();
 		}	
+	}
+
+	public void RandomizePitch( int id )
+	{
+		Sound s = FindSound( id );
+
+		if( s == null )
+		{
+			Debug.Log( "Sound Not Found..." );
+		}
+		else
+		{
+			s.source.pitch = ( UnityEngine.Random.Range(0.3f, .9f) );
+			s.source.Play();
+		}
 	}
 
 	public void StopSound( int id )
