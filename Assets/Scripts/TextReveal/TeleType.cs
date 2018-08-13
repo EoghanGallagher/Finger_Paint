@@ -34,7 +34,7 @@ public class TeleType : MonoBehaviour {
 		
 		//Get all visible characters in text object
 		int totalVisibleCharacters = blurbText.textInfo.characterCount;
-		Debug.Log( totalVisibleCharacters );
+		
 		int count = 0;
 
 		while( true )
@@ -42,7 +42,7 @@ public class TeleType : MonoBehaviour {
 			
 		
 			int visibleCount = count % ( totalVisibleCharacters + 1 );
-			Debug.Log( visibleCount + " " + totalVisibleCharacters ); 
+			
 			blurbText.maxVisibleCharacters = visibleCount;
 			
 			if( visibleCount >= totalVisibleCharacters )

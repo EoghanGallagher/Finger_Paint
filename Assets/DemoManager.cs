@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DemoManager : MonoBehaviour 
 {
@@ -42,5 +43,12 @@ public class DemoManager : MonoBehaviour
 
 		//Activate the pointer which will trace a path through the stars
 		demoPointer.SetActive( true ); 
+
+
+		//Return to Intro screen
+		yield return new WaitForSeconds( 15.0f );
+		SceneManager.LoadSceneAsync( "Star_Racer_Intro" );
+
+
 	}
 }

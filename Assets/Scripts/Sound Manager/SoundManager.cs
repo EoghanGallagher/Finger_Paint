@@ -86,7 +86,7 @@ public class SoundManager : MonoBehaviour
 		}
 		else
 		{
-			s.source.pitch = ( UnityEngine.Random.Range(0.3f, .9f) );
+			s.source.pitch = ( UnityEngine.Random.Range(0.5f, .9f) );
 			s.source.Play();
 		}
 	}

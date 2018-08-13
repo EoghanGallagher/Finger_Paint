@@ -173,6 +173,7 @@ public class Star : MonoBehaviour
 				//Play Success sound effect
 				//Message broadcast : PlaySound takes an int as a parameter 
 				//Subscribers : SoundManager
+				//Messenger<int>.Broadcast( "RandomizePitch", 0 );
 				Messenger<int>.Broadcast( "PlaySound" , 0 );
 				//Handheld.Vibrate();
 
